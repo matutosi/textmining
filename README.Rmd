@@ -1,0 +1,51 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# textmining
+
+The goal of textmining is to support textmining visualization.
+
+## How to use
+
+Run on web (shinyapps.io). 
+
+https://matutosi.shinyapps.io/textmining
+
+Run on your local PC.
+
+```{r, eval = FALSE}
+  # Install packages (need only once)
+if(!require("devtools"))        install.packages("devtools")
+if(!require("shiny"))           install.packages("shiny")
+if(!require("tidyverse"))       install.packages("tidyverse")
+if(!require("reactable"))       install.packages("reactable")
+if(!require("rmarkdown"))       install.packages("rmarkdown")
+if(!require("shinycssloaders")) install.packages("shinycssloaders")
+
+  # Run app
+shiny::runGitHub("matutosi/textmining", subdir = "R")
+```
+
+## Citation
+
+Toshikazu Matsumura (2021) Textmining visualization tools with R and shiny.  https://matutosi.shinyapps.io/textmining/.
+
+
+# Make your shiny app
+
+* Home: https://shiny.rstudio.com/
+* Gallery: https://shiny.rstudio.com/gallery/
+* Tutorial: https://shiny.rstudio.com/tutorial/
+* shinyapps.io: https://www.shinyapps.io/
+* Book: https://mastering-shiny.org/
+* Book (in Japanese): https://www.amazon.co.jp/dp/4863542577/
