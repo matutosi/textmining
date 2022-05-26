@@ -20,4 +20,5 @@ library(ggraph)
 
 source("utils.R")
 source("load_data.R")
+source("mecab.R")
 source("bigram.R")
