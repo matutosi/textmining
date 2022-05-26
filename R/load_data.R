@@ -10,7 +10,6 @@ example_data_analyzed <- function() {
 
 ## UI module
 load_dataUI <- function(id) {
-  # data_loadUI <- function(id, label = "Laod data") {
   ns <- NS(id)
   tagList(
     sidebarLayout(
@@ -18,23 +17,20 @@ load_dataUI <- function(id) {
 
         # Instruction
         tags$ol(
-  #           tags$li('Select "Data type"'),
           tags$li('Select "Use example data" or "Upload file"'),
+          tags$li('Select column to use bigram'),
         ),
-
-        # Data type
-  #         selectInput(ns("data_type"), "Data type: ", 
-  #           choices = c("analyzed (tokenized) data" = "", "analyzed" = "raw")),
-  #         tags$hr(),
 
         # Example or upload file
         fileInput(ns("file"), "upload file"),
         checkboxInput(ns("file_s_jis"), "Encoding: S-JIS (CP932) JP Windows", value = FALSE),
         tags$hr(),
         checkboxInput(ns("use_example"), "Use example data", value = TRUE),
+        tags$hr(),
 
-        # select variable
-  #         selectInput(ns("text"), "Text: ", choices = character(0)),
+        # Select column
+        selectInput(ns("select_col"), "Select column", 
+          choices = character(0), multiple = TRUE),
 
       # Downlod example
         tags$hr(),
@@ -76,16 +72,22 @@ load_dataServer <- function(id, example_data){
     data_in
     })
 
-    # # # Input data # # #
-    observeEvent(data_in(), {
-      req(data_in())
+
+    # # # Update selectInput # # #
+    observeEvent(c(data_in(), input$use_example), {
       choices <- colnames(data_in())
-      updateSelectInput(session, "text", choices = choices)
+      selected <- 
+        if(length(choices) == 1) choices[1]
+        else                     choices[c(12, 6)]
+      updateSelectInput(session, "select_col", choices = choices, selected = selected)
     })
+
 
     # Download example
     output$download_example <- 
-      renderUI("Example data: T. MATSUMURA et. al 2014. Vegetation Science, 31, 193-218. doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
+      renderUI("Example data: T. MATSUMURA et. al 2014. 
+        Vegetation Science, 31, 193-218. 
+        doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
       example_data
       filename <- "example_data.csv"
     output$dl_example_data <- downloadHandler(
@@ -99,7 +101,9 @@ load_dataServer <- function(id, example_data){
     })
 
     # Return data
-    reactive({ data_in() })
+    reactive({
+      dplyr::select(data_in(), input$select_col)
+    })
 
   })
 }
