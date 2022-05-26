@@ -2,9 +2,14 @@
 navbarPage("textmining",
 
   # # # Data load # # #
-  tabPanel("Read data",
-    data_loadUI("data_load")
+  tabPanel("Read ALANYZED data",
+    load_dataUI("load_analyzed_data")
   ),
+
+  tabPanel("Read RAW data",
+    load_dataUI("load_raw_data")
+  ),
+
 
 
   # # # Bigram # # #

@@ -19,5 +19,5 @@ library(ggraph)
 
 
 source("utils.R")
-source("data_load.R")
+source("load_data.R")
 source("bigram.R")
