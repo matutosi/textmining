@@ -23,7 +23,8 @@ data_loadUI <- function(id, label = "Upload file") {
         fileInput(ns("file"), label),
         checkboxInput(ns("file_s_jis"), "Encoding: S-JIS (CP932) JP Windows", value = FALSE),
         tags$hr(),
-        checkboxInput(ns("use_example"), "Use example data", value = TRUE),
+        checkboxInput(ns("use_example"), "Use example data"),
+  #         checkboxInput(ns("use_example"), "Use example data", value = TRUE),
 
         # select variable
         selectInput(ns("text"), "Text: ", choices = character(0)),
@@ -89,7 +90,7 @@ data_loadServer <- function(id){
     })
 
     # Return data
-    reactive({data_in()})
+    reactive({ list(data = data_in(), text_col = input$text) })
 
   })
 }

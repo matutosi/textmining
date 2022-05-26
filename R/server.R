@@ -5,10 +5,7 @@ function(input, output, session){
   data_in <- data_loadServer("data_load")
 
   # # # Bigram # # #
-  #   observeEvent(), ignoreInit = TRUE, {
-  #     bigramSever("bigram", )
-  #   })
-
+  bigramServer("bigram", data_in())
 
 
 }
