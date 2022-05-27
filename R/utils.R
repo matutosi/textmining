@@ -16,13 +16,13 @@
 #' add_id_df(tibble::tibble(tmp), col = "tmp", "brk")
 #' 
 #' @export
-id_with_break <- function(x, brk, end_with_brk = TRUE){
-  id <- purrr::accumulate(x == brk, sum) + 1
-  if(end_with_brk) id <- c(1, id)[-length(id)]
-  return(id)
+text_id_with_break <- function(x, brk, end_with_brk = TRUE){
+  text_id <- purrr::accumulate(x == brk, sum) + 1
+  if(end_with_brk) text_id <- c(1, text_id)[-length(text_id)]
+  return(text_id)
 }
-add_id_df <- function(df, col, brk, end_with_brk = TRUE){
+add_text_id_df <- function(df, col, brk, end_with_brk = TRUE){
   x <- df[[col]]
-  id <- id_with_break(x, brk, end_with_brk)
-  dplyr::bind_cols(df, id = id)
+  text_id <- text_id_with_break(x, brk, end_with_brk)
+  dplyr::bind_cols(df, text_id = text_id)
 }
