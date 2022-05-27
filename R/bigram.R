@@ -8,10 +8,19 @@ bigramUI <- function(id) {
         sliderInput(ns("detail_x"), "X range of detail plot", value = c(-5, 5), min = -20, max = 20, step = 0.5),
         sliderInput(ns("detail_y"), "Y range of detail plot", value = c(-5, 5), min = -20, max = 20, step = 0.5),
 
-        sliderInput(ns("rand_seed"), "Seed of random number generation", value = 12, min = 1, max = 100),
+        checkboxInput(ns("show_axis"), "Show axis", value = TRUE),
+
+        numericInput(ns("rand_seed"), "Seed of random number generation", value = 12, min = 1, max = 100),
         sliderInput(ns("threshold"), "Number of bigram for plot", value = 100, min = 50, max = 200),
 
-        download_tsv_dataUI(ns("download_bigram_data"), "DL bigram data")
+        colourInput(ns("arrow_col"),  "Arrow colour",  value = "darkgreen"),
+        colourInput(ns("circle_col"), "Circle colour", value = "skyblue"),
+
+        sliderInput(ns("arrow_size"),  "Arrow_size",  value = 4, min = 1, max = 10),
+        sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
+        sliderInput(ns("text_size"),   "Text size",   value = 5, min = 1, max = 10),
+
+        download_tsv_dataUI(ns("download_bigram_data"), "DL bigram data"),
 
       ),
 
@@ -25,13 +34,13 @@ bigramUI <- function(id) {
           plotOutput(ns("bigram_network"))
         ),
 
-        shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
-          plotOutput(ns("bigram_network_detail_noscale"))
-        ),
-
-        shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
-          plotOutput(ns("bigram_network_noscale"))
-        ),
+  #         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
+  #           plotOutput(ns("bigram_network_detail_noscale"))
+  #         ),
+  # 
+  #         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
+  #           plotOutput(ns("bigram_network_noscale"))
+  #         ),
 
        reactableOutput(ns("table")),
 
@@ -100,14 +109,20 @@ bigramServer <- function(id, data_in){
     # plot
     bigram_network_raw <- reactive({
       req(bigram_net())
+
+      arrow_size  <- unit(input$arrow_size, 'mm')
+      circle_size <- input$circle_size
+      text_size   <- input$text_size
+
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
-        geom_edge_link(color = "pink", arrow = arrow(length = unit(4, 'mm')), start_cap = circle(4, 'mm'), end_cap = circle(4, 'mm')) +
-        geom_node_point(color = "skyblue", size = freq_ratio()) +
-        geom_node_text(aes(label = name), vjust = 1, hjust = 1, size = 5) +
+        geom_edge_link(color  = input$arrow_col,  arrow = arrow(length = arrow_size), start_cap = circle(input$arrow_size, 'mm'), end_cap = circle(input$arrow_size, 'mm')) +
+        geom_node_point(color = input$circle_col, size = freq_ratio() * circle_size * 0.2) +  # default (5) means 5 * 0.2 = 1
+        geom_node_text(aes(label = name), vjust = 1, hjust = 1, size = text_size) +
         ggplot2::theme_bw() +
         theme(axis.title.x = element_blank(), axis.title.y = element_blank())
     })
+
 
     bigram_network_detail <- reactive({
       bigram_network_raw() + 
@@ -130,20 +145,31 @@ bigramServer <- function(id, data_in){
 
     # Render
     output$bigram_network_detail <- renderPlot(res = 96, {
-      bigram_network_detail()
+      if(input$show_axis) bigram_network_detail()
+      else                bigram_network_detail_noscale()
     })
     output$bigram_network <- renderPlot(res = 96, {
-      bigram_network_raw()
+      if(input$show_axis) bigram_network_raw()
+      else                bigram_network_raw_noscale()
+      
     })
+
+    # Render
+  #     output$bigram_network_detail <- renderPlot(res = 96, {
+  #       bigram_network_detail()
+  #     })
+  #     output$bigram_network <- renderPlot(res = 96, {
+  #       bigram_network_raw()
+  #     })
 
     # Render (no scale)
-    output$bigram_network_detail_noscale <- renderPlot(res = 96, {
-      bigram_network_detail_noscale()
-    })
-
-    output$bigram_network_noscale <- renderPlot(res = 96, {
-      bigram_network_raw_noscale()
-    })
+  #     output$bigram_network_detail_noscale <- renderPlot(res = 96, {
+  #       bigram_network_detail_noscale()
+  #     })
+  # 
+  #     output$bigram_network_noscale <- renderPlot(res = 96, {
+  #       bigram_network_raw_noscale()
+  #     })
 
   })
 }

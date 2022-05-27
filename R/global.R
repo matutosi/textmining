@@ -8,6 +8,7 @@ if(1 < compareVersion(as.character(packageVersion("moranajp")), "0.9.5"))
 if(!require("reactable"))       install.packages("reactable")
 if(!require("igraph"))          install.packages("igraph")
 if(!require("ggraph"))          install.packages("ggraph")
+if(!require("colourpicker"))    install.packages("colourpicker")
 
 library(devtools)
 library(shiny)
