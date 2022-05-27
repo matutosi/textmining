@@ -1,20 +1,38 @@
   # https://matutosi.shinyapps.io/ecanvis/
 function(input, output, session){
 
-  # # # ANALYZED daata # # #
-  analayzed_data <- 
-    load_dataServer("load_analyzed_data", example_data = example_data_analyzed())
+  # # # # # # # # # # # # # # # # # # 
+  # 
+  #      ANALYZED data
+  # 
+  # # # # # # # # # # # # # # # # # # 
 
-  # # # RAW daata # # #
-  raw_data <- 
-    load_dataServer("load_raw_data", example_data = example_data_raw())
+  # # # Data load # # #
+  analayzed_data <- load_dataServer("load_analyzed_data", example_data = example_data_analyzed())
 
-  # # # moranajp # # #
-  mecabServer("mecab", raw_data())
-
+  # # # cleaning # # #
+  chasen_res <- reactive({ clean_chasen(analayzed_data()) }) 
 
   # # # Bigram # # #
-  bigramServer("bigram", analayzed_data())
+  bigramServer("bigram_analyzed", chasen_res())
 
+
+  # # # # # # # # # # # # # # # # # # 
+  # 
+  #      RAW data
+  # 
+  # # # # # # # # # # # # # # # # # # 
+
+  # # # Data load # # #
+  raw_data <- load_dataServer("load_raw_data", example_data = example_data_raw())
+
+  # # # moranajp # # #
+  mecab_local <- mecabServer("mecab_local", raw_data())
+
+  # # # cleaning # # #
+  mecab_res <- reactive({ clean_mecab_local(mecab_local()) }) 
+  
+  # # # Bigram # # #
+  bigramServer("bigram_raw", mecab_res())
 
 }

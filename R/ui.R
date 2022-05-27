@@ -1,6 +1,12 @@
   # https://matutosi.shinyapps.io/textmining/
 navbarPage("textmining",
 
+  # # # # # # # # # # # # # # # # # # 
+  # 
+  #      ANALYZED data
+  # 
+  # # # # # # # # # # # # # # # # # # 
+
   # # # Data load # # #
   tabPanel("Read ALANYZED data",
     tags$h3("Select TWO columns."),
@@ -8,19 +14,33 @@ navbarPage("textmining",
     load_dataUI("load_analyzed_data")
   ),
 
+  # # # Bigram # # #
+  tabPanel("Bigram (analyzed data)",
+    bigramUI("bigram_analyzed")
+  ),
+
+
+  # # # # # # # # # # # # # # # # # # 
+  # 
+  #      RAW data
+  # 
+  # # # # # # # # # # # # # # # # # # 
+
+  # # # Data load # # #
   tabPanel("Read RAW data",
     tags$h3("Select ONE column (text)."),
     load_dataUI("load_raw_data")
   ),
 
+  # # # MeCab # # #
   tabPanel("MeCab",
-    mecabUI("mecab")
+    mecabUI("mecab_local")
   ),
-
 
   # # # Bigram # # #
-  tabPanel("Bigram",
-    bigramUI("bigram")
+  tabPanel("Bigram (raw data)",
+    bigramUI("bigram_raw")
   ),
+
 
 )

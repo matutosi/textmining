@@ -27,10 +27,13 @@ Run on your local PC.
   # Install packages (need only once)
 if(!require("devtools"))        install.packages("devtools")
 if(!require("shiny"))           install.packages("shiny")
-if(!require("tidyverse"))       install.packages("tidyverse")
-if(!require("reactable"))       install.packages("reactable")
-if(!require("rmarkdown"))       install.packages("rmarkdown")
 if(!require("shinycssloaders")) install.packages("shinycssloaders")
+if(!require("tidyverse"))       install.packages("tidyverse")
+if(1 < compareVersion(as.character(packageVersion("moranajp")), "0.9.5"))
+                                devtools::install_github("matutosi/moranajp", force = TRUE)
+if(!require("reactable"))       install.packages("reactable")
+if(!require("igraph"))          install.packages("igraph")
+if(!require("ggraph"))          install.packages("ggraph")
 
   # Run app
 shiny::runGitHub("matutosi/textmining", subdir = "R")
