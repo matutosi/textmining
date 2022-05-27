@@ -1,6 +1,6 @@
-clean_chasen <- function(df){
+clean_chamame <- function(df){
   df %>%
-    pos_filter_chasen() %>%
+    pos_filter_chamame() %>%
     delete_stop_words() %>%
     replace_words()
 }
@@ -36,7 +36,7 @@ pos_filter_mecab_local <- function(df){
   return(df)
 }
 
-pos_filter_chasen <- function(df){
+pos_filter_chamame <- function(df){
   # splite pos
   df <- 
     df %>%

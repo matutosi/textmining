@@ -11,10 +11,10 @@ function(input, output, session){
   analayzed_data <- load_dataServer("load_analyzed_data", example_data = example_data_analyzed())
 
   # # # cleaning # # #
-  chasen_res <- reactive({ clean_chasen(analayzed_data()) }) 
+  chamame_res <- reactive({ clean_chamame(analayzed_data()) }) 
 
   # # # Bigram # # #
-  bigramServer("bigram_analyzed", chasen_res())
+  bigramServer("bigram_analyzed", chamame_res())
 
 
   # # # # # # # # # # # # # # # # # # 
