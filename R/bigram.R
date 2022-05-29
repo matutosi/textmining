@@ -112,7 +112,7 @@ bigramServer <- function(id, data_in){
       text_size   <- input$text_size
   # use only in shiny.io
   #       font_family <- input$font
-      font_family <- NULL
+      font_family <- ""
 
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
