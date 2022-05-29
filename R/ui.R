@@ -21,27 +21,26 @@ navbarPage("textmining",
   ),
 
 
-  # # # # # # # # # # # # # # # # # # 
+  #   # # # # # # # # # # # # # # # # # # 
+  #   # 
+  #   #      RAW data
+  #   # 
+  #   # # # # # # # # # # # # # # # # # # 
   # 
-  #      RAW data
+  #   # # # Data load # # #
+  #   tabPanel("Read RAW data",
+  #     tags$h3("Select ONE column (text)."),
+  #     load_dataUI("load_raw_data")
+  #   ),
   # 
-  # # # # # # # # # # # # # # # # # # 
-
-  # # # Data load # # #
-  tabPanel("Read RAW data",
-    tags$h3("Select ONE column (text)."),
-    load_dataUI("load_raw_data")
-  ),
-
-  # # # MeCab # # #
-  tabPanel("MeCab",
-    mecabUI("mecab_local")
-  ),
-
+  #   # # # MeCab # # #
+  #   tabPanel("MeCab",
+  #     mecabUI("mecab_local")
+  #   ),
+  # 
   # # # Bigram # # #
-  tabPanel("Bigram (raw data)",
-    bigramUI("bigram_raw")
-  ),
-
+  #   tabPanel("Bigram (raw data)",
+  #     bigramUI("bigram_raw")
+  #   ),
 
 )

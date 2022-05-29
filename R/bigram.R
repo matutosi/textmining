@@ -154,22 +154,5 @@ bigramServer <- function(id, data_in){
       
     })
 
-    # Render
-  #     output$bigram_network_detail <- renderPlot(res = 96, {
-  #       bigram_network_detail()
-  #     })
-  #     output$bigram_network <- renderPlot(res = 96, {
-  #       bigram_network_raw()
-  #     })
-
-    # Render (no scale)
-  #     output$bigram_network_detail_noscale <- renderPlot(res = 96, {
-  #       bigram_network_detail_noscale()
-  #     })
-  # 
-  #     output$bigram_network_noscale <- renderPlot(res = 96, {
-  #       bigram_network_raw_noscale()
-  #     })
-
   })
 }

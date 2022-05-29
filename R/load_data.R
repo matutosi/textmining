@@ -88,7 +88,6 @@ load_dataServer <- function(id, example_data){
       renderUI("Example data: T. MATSUMURA et. al 2014. 
         Vegetation Science, 31, 193-218. 
         doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
-  #       example_data
       filename <- "example_data.csv"
     output$dl_example_data <- downloadHandler(
       filename = filename,
