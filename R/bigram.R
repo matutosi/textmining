@@ -10,9 +10,9 @@ bigramUI <- function(id) {
 
         checkboxInput(ns("show_axis"), "Show axis", value = TRUE),
 
-        selectInput(ns("font"), "Font", 
-          choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
-                      "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
+  #         selectInput(ns("font"), "Font", 
+  #           choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
+  #                       "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
 
         numericInput(ns("rand_seed"), "Seed of random number generation", value = 12, min = 1, max = 100),
         sliderInput(ns("threshold"), "Number of bigram for plot", value = 100, min = 50, max = 200),
@@ -115,7 +115,8 @@ bigramServer <- function(id, data_in){
         geom_edge_link(color  = input$arrow_col,  arrow = arrow(length = arrow_size), start_cap = circle(input$arrow_size, 'mm'), end_cap = circle(input$arrow_size, 'mm')) +
         geom_node_point(color = input$circle_col, size = freq_ratio() * circle_size * 0.2) +  # default (5) means 5 * 0.2 = 1
         geom_node_text(aes(label = name), vjust = 1, hjust = 1, size = text_size) +
-        ggplot2::theme_bw(base_family = input$font) +
+        ggplot2::theme_bw(base_family = IPAexGothic) +
+  #         ggplot2::theme_bw(base_family = input$font) +
         theme(axis.title.x = element_blank(), axis.title.y = element_blank())
     })
 
