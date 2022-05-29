@@ -39,23 +39,3 @@ source("download_data.R")
   # 4 fonts
 download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_4_font.sh", destfile = "use_4_font.sh")
 system("bash ./use_4_font.sh")
-
-  #   # IPAex font
-  # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_ipaex_font.sh", 
-  #   destfile = "use_ipaex_font.sh")
-  # system("bash ./use_ipaex_font.sh")
-  # 
-  #   # Minamotono font
-  # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_sourcehan_font.sh",
-  #    destfile = "use_sourcehan_font.sh")
-  # system("bash ./use_sourcehan_font.sh")
-  # 
-  #   # Noto font
-  # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_noto_font.sh", 
-  #   destfile = "use_noto_font.sh")
-  # system("bash ./use_noto_font.sh")
-  # 
-  #   # Seto font
-  # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_seto_font.sh", 
-  #   destfile = "use_seto_font.sh")
-  # system("bash ./use_seto_font.sh")
