@@ -10,10 +10,6 @@ bigramUI <- function(id) {
 
         checkboxInput(ns("show_axis"), "Show axis", value = TRUE),
 
-  #         selectInput(ns("font"), "Font", 
-  #           choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
-  #                       "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
-
         numericInput(ns("rand_seed"), "Seed of random number generation", value = 12, min = 1, max = 100),
         sliderInput(ns("threshold"), "Number of bigram for plot", value = 100, min = 50, max = 200),
 
@@ -23,6 +19,10 @@ bigramUI <- function(id) {
         sliderInput(ns("arrow_size"),  "Arrow_size",  value = 4, min = 1, max = 10),
         sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
         sliderInput(ns("text_size"),   "Text size",   value = 5, min = 1, max = 10),
+        selectInput(ns("font"), "Font", 
+          choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
+                      "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
+
 
         download_tsv_dataUI(ns("download_bigram_data"), "DL bigram data"),
 
@@ -109,15 +109,16 @@ bigramServer <- function(id, data_in){
       arrow_size  <- unit(input$arrow_size, 'mm')
       circle_size <- input$circle_size
       text_size   <- input$text_size
+      font_family <- input$font
 
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
         geom_edge_link(color  = input$arrow_col,  arrow = arrow(length = arrow_size), start_cap = circle(input$arrow_size, 'mm'), end_cap = circle(input$arrow_size, 'mm')) +
         geom_node_point(color = input$circle_col, size = freq_ratio() * circle_size * 0.2) +  # default (5) means 5 * 0.2 = 1
-        geom_node_text(aes(label = name), vjust = 1, hjust = 1, size = text_size) +
-        ggplot2::theme_bw(base_family = IPAexGothic) +
-  #         ggplot2::theme_bw(base_family = input$font) +
-        theme(axis.title.x = element_blank(), axis.title.y = element_blank())
+        geom_node_text(aes(label = name), vjust = 1, hjust = 1, size = text_size, family = font_family) +
+        ggplot2::theme_bw() + 
+        ggplot2::theme(axis.title.x = element_blank(),
+                       axis.title.y = element_blank())
     })
 
 
@@ -148,7 +149,6 @@ bigramServer <- function(id, data_in){
     output$bigram_network <- renderPlot(res = 96, {
       if(input$show_axis) bigram_network_raw()
       else                bigram_network_raw_noscale()
-      
     })
 
   })
