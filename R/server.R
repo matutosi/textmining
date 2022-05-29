@@ -18,23 +18,23 @@ function(input, output, session){
 
 
 
-  #   # # # # # # # # # # # # # # # # # # 
-  #   # 
-  #   #      RAW data
-  #   # 
-  #   # # # # # # # # # # # # # # # # # # 
+  # # # # # # # # # # # # # # # # # # 
   # 
-  #   # # # Data load # # #
-  #   raw_data <- load_dataServer("load_raw_data", example_data = example_data_raw())
+  #      RAW data
   # 
-  #   # # # moranajp # # #
-  #   mecab_local <- mecabServer("mecab_local", raw_data())
-  # 
-  #   # # # cleaning # # #
-  #   mecab_res <- reactive({ clean_mecab_local(mecab_local()) }) 
-  #   
-  #   # # # Bigram # # #
-  #   bigramServer("bigram_raw", mecab_res())
+  # # # # # # # # # # # # # # # # # # 
+
+  # # # Data load # # #
+  raw_data <- load_dataServer("load_raw_data", example_data = example_data_raw())
+
+  # # # moranajp # # #
+  mecab_local <- mecabServer("mecab_local", raw_data())
+
+  # # # cleaning # # #
+  mecab_res <- reactive({ clean_mecab_local(mecab_local()) }) 
+  
+  # # # Bigram # # #
+  bigramServer("bigram_raw", mecab_res())
 
 
 }

@@ -19,9 +19,10 @@ bigramUI <- function(id) {
         sliderInput(ns("arrow_size"),  "Arrow_size",  value = 4, min = 1, max = 10),
         sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
         sliderInput(ns("text_size"),   "Text size",   value = 5, min = 1, max = 10),
-        selectInput(ns("font"), "Font", 
-          choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
-                      "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
+  # use only in shiny.io
+  #         selectInput(ns("font"), "Font", 
+  #           choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
+  #                       "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
 
 
         download_tsv_dataUI(ns("download_bigram_data"), "DL bigram data"),
@@ -109,7 +110,9 @@ bigramServer <- function(id, data_in){
       arrow_size  <- unit(input$arrow_size, 'mm')
       circle_size <- input$circle_size
       text_size   <- input$text_size
-      font_family <- input$font
+  # use only in shiny.io
+  #       font_family <- input$font
+      font_family <- NULL
 
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
