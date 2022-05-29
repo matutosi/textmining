@@ -29,7 +29,7 @@ load_dataUI <- function(id) {
         tags$hr(),
 
         # Select column
-        selectInput(ns("select_col"), "Select column", 
+        selectInput(ns("select_col"), "Select column",
           choices = character(0), multiple = TRUE),
 
       # Downlod example
@@ -59,7 +59,7 @@ load_dataServer <- function(id, example_data){
     data_in <- reactive({
       locale <- if(input$file_s_jis) readr::locale(encoding = "CP932")
         else                         readr::default_locale()
-      data_in <- 
+      data_in <-
         if(input$use_example){
           example_data
         } else {
@@ -77,7 +77,7 @@ load_dataServer <- function(id, example_data){
     # # # Update selectInput # # #
     observeEvent(c(data_in(), input$use_example), {
       choices <- colnames(data_in())
-      selected <- 
+      selected <-
         if(length(choices) == 1) choices[1]
         else                     choices[c(12, 6)]
       updateSelectInput(session, "select_col", choices = choices, selected = selected)
@@ -85,9 +85,9 @@ load_dataServer <- function(id, example_data){
 
 
     # Download example
-    output$download_example <- 
-      renderUI("Example data: T. MATSUMURA et. al 2014. 
-        Vegetation Science, 31, 193-218. 
+    output$download_example <-
+      renderUI("Example data: T. MATSUMURA et. al 2014.
+        Vegetation Science, 31, 193-218.
         doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
       filename <- "example_data.csv"
     output$dl_example_data <- downloadHandler(
@@ -97,7 +97,8 @@ load_dataServer <- function(id, example_data){
 
     # Show table
     output$table <- renderReactable({
-      reactable::reactable(data_in(), resizable = TRUE, filterable = TRUE, searchable = TRUE,)
+      reactable::reactable(dplyr::relocate(data_in(),any_of(input$select_col)),
+                           resizable = TRUE, filterable = TRUE, searchable = TRUE)
     })
 
     # Return data
