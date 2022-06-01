@@ -5,6 +5,7 @@ bigramUI <- function(id) {
     sidebarLayout(
       sidebarPanel(
 
+  #         selectInput(ns("chap"), "chap", choices = 1:4),
         sliderInput(ns("detail_x"), "X range of detail plot", value = c(-5, 5), min = -20, max = 20, step = 0.5),
         sliderInput(ns("detail_y"), "Y range of detail plot", value = c(-5, 5), min = -20, max = 20, step = 0.5),
 
@@ -54,6 +55,7 @@ bigramServer <- function(id, data_in){
     # bigram
     bigram <- reactive({
       data_in %>%
+  #         dplyr::filter(chap == input$chap) %>%
         dplyr::group_by(text_id) %>%
         # according to arrow direction in ggplot: "word_2-word_1"
         dplyr::transmute(text_id, word_2 = term, word_1 = dplyr::lag(term), bigram = stringr::str_c(word_2, " - ", word_1)) %>%
@@ -75,7 +77,7 @@ bigramServer <- function(id, data_in){
 
 
     # Download bigram data
-     download_tsv_dataServer("download_bigram_data", bigram(), "bigram")
+    download_tsv_dataServer("download_bigram_data", bigram(), "bigram")
 
 
     # word frequency

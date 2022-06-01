@@ -1,6 +1,6 @@
 ## Example data raw
 example_data_raw <- function() {
-  readr::read_csv("data/review.txt")
+  readr::read_delim("data/review.txt")
 }
 ## Example data review
 example_data_analyzed <- function() {
@@ -78,7 +78,7 @@ load_dataServer <- function(id, example_data){
     observeEvent(c(data_in(), input$use_example), {
       choices <- colnames(data_in())
       selected <-
-        if(length(choices) == 1) choices[1]
+        if(length(choices) <5  ) choices[1]
         else                     choices[c(12, 6)]
       updateSelectInput(session, "select_col", choices = choices, selected = selected)
     })
@@ -97,7 +97,7 @@ load_dataServer <- function(id, example_data){
 
     # Show table
     output$table <- renderReactable({
-      reactable::reactable(dplyr::relocate(data_in(),any_of(input$select_col)),
+      reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)),
                            resizable = TRUE, filterable = TRUE, searchable = TRUE)
     })
 
