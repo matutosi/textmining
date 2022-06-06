@@ -114,12 +114,12 @@ bigramServer <- function(id, data_in){
       text_size   <- input$text_size
   # use only in shiny.io
   #       font_family <- input$font
-      if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
-        font_family <- ""
+      font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
+        ""
       } else {
-        font_family <- "HiraKakuPro-W3"
+        "HiraKakuPro-W3"
       }
-
+print(font_family)
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
         geom_edge_link(color  = input$arrow_col,  arrow = arrow(length = arrow_size), start_cap = circle(input$arrow_size, 'mm'), end_cap = circle(input$arrow_size, 'mm')) +
