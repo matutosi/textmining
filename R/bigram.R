@@ -114,7 +114,11 @@ bigramServer <- function(id, data_in){
       text_size   <- input$text_size
   # use only in shiny.io
   #       font_family <- input$font
-      font_family <- ""
+      if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
+        font_family <- ""
+      } else {
+        font_family <- "HiraKakuPro-W3"
+      }
 
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
