@@ -11,11 +11,10 @@ function(input, output, session){
   analayzed_data <- load_dataServer("load_analyzed_data", example_data = example_data_analyzed())
 
   # # # cleaning # # #
-  chamame_res <- reactive({ clean_chamame(analayzed_data()) }) 
+  chamame_res <- reactive({ clean_chamame_2(analayzed_data()) }) 
 
   # # # Bigram # # #
   bigramServer("bigram_analyzed", chamame_res())
-
 
 
   # # # # # # # # # # # # # # # # # # 
@@ -31,8 +30,8 @@ function(input, output, session){
   mecab_local <- mecabServer("mecab_local", raw_data())
 
   # # # cleaning # # #
-  mecab_res <- reactive({ clean_mecab_local(mecab_local()) }) 
-  
+  mecab_res <- reactive({ clean_mecab_local_2(mecab_local()) })
+
   # # # Bigram # # #
   bigramServer("bigram_raw", mecab_res())
 
