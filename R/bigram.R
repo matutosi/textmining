@@ -119,7 +119,6 @@ bigramServer <- function(id, data_in){
       } else {
         "HiraKakuPro-W3"
       }
-print(font_family)
       bigram_net() %>%
         ggraph(layout = "fr") +        # the most understandable layout
         geom_edge_link(color  = input$arrow_col,  arrow = arrow(length = arrow_size), start_cap = circle(input$arrow_size, 'mm'), end_cap = circle(input$arrow_size, 'mm')) +
@@ -129,7 +128,6 @@ print(font_family)
         ggplot2::theme(axis.title.x = element_blank(),
                        axis.title.y = element_blank())
     })
-
 
     bigram_network_detail <- reactive({
       bigram_network_raw() + 
