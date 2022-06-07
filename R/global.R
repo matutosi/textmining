@@ -3,8 +3,11 @@ if(!require("devtools"))        install.packages("devtools")
 if(!require("shiny"))           install.packages("shiny")
 if(!require("shinycssloaders")) install.packages("shinycssloaders")
 if(!require("tidyverse"))       install.packages("tidyverse")
+  # latest <- "0.9.5"
+  # installed <- as.character(packageVersion("moranajp"))
+  # if(0 < compareVersion(latest, installed))
   # if(!require("moranajp"))        
-devtools::install_github("matutosi/moranajp", force = TRUE)
+  # devtools::install_github("matutosi/moranajp", force = TRUE)
 if(!require("reactable"))       install.packages("reactable")
 if(!require("igraph"))          install.packages("igraph")
 if(!require("ggraph"))          install.packages("ggraph")
@@ -19,6 +22,7 @@ library(moranajp)
 library(reactable)
 library(igraph)
 library(ggraph)
+  # library(ragg)
 
 source("utils.R")
 source("load_data.R")
@@ -26,6 +30,12 @@ source("mecab.R")
 source("cleaning.R")
 source("bigram.R")
 source("download_data.R")
+
+windowsFonts(
+  `Yu Mincho` = windowsFont("Yu Mincho"),
+  `Yu Gothic` = windowsFont("Yu Gothic"),
+  `Meiryo UI` = windowsFont("Meiryo UI")
+)
 
   #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  # 
   # 
