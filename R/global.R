@@ -31,11 +31,11 @@ source("cleaning.R")
 source("bigram.R")
 source("download_data.R")
 
-  # windowsFonts(
-  #   `Yu Mincho` = windowsFont("Yu Mincho"),
-  #   `Yu Gothic` = windowsFont("Yu Gothic"),
-  #   `Meiryo UI` = windowsFont("Meiryo UI")
-  # )
+windowsFonts(
+  `Yu Mincho` = windowsFont("Yu Mincho"),
+  `Yu Gothic` = windowsFont("Yu Gothic"),
+  `Meiryo UI` = windowsFont("Meiryo UI")
+)
 
   #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  # 
   # 

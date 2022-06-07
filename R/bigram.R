@@ -85,12 +85,11 @@ bigramServer <- function(id, data_in){
       # use only in shiny.io
       #       font_family <- input$font
       font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
-        ""
         # "Yu Mincho"
         # "Noto Sans CJK JP"
         # "Noto Serif CJK JP"
         #         ""
-        #  "Meiryo UI"
+        "Meiryo UI"
       } else {
         "HiraKakuPro-W3"
       }
@@ -98,13 +97,14 @@ bigramServer <- function(id, data_in){
   # update_geom_defaults("label", list(family = "Yu Gothic UI"))
 
       bigram_net() %>%
-        bigram_network_plot(freq = freq(),
-                            arrow_col   = input$arrow_col,
-                            circle_col  = input$circle_col,
-                            arrow_size  = input$arrow_size,
-                            circle_size = input$circle_size,
-                            text_size   = input$text_size,
-                            font_family = font_family)
+        moranajp::bigram_network_plot(
+          freq = freq(),
+          arrow_col   = input$arrow_col,
+          circle_col  = input$circle_col,
+          arrow_size  = input$arrow_size,
+          circle_size = input$circle_size,
+          text_size   = input$text_size,
+          font_family = font_family)
     })
 
     bigram_network_detail <- reactive({
@@ -126,13 +126,11 @@ bigramServer <- function(id, data_in){
     })
 
     # Render
-    output$bigram_network_detail <- renderPlot(
-      res = 96, family = "Meiryo UI", {
+    output$bigram_network_detail <- renderPlot(res = 96, {
         if(input$show_axis) bigram_network_detail()
         else                bigram_network_detail_noscale()
       })
-    output$bigram_network <- renderPlot(
-      res = 96, family = "Yu Mincho",{
+    output$bigram_network <- renderPlot(res = 96, {
         if(input$show_axis) bigram_network_raw()
         else                bigram_network_raw_noscale()
       })
