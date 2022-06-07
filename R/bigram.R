@@ -82,16 +82,20 @@ bigramServer <- function(id, data_in){
     # plot
     bigram_network_raw <- reactive({
       req(bigram_net())
-
       # use only in shiny.io
       #       font_family <- input$font
       font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
+        ""
+        # "Yu Mincho"
         # "Noto Sans CJK JP"
         # "Noto Serif CJK JP"
-        ""
+        #         ""
+        #  "Meiryo UI"
       } else {
         "HiraKakuPro-W3"
       }
+  # update_geom_defaults("text", list(family = "Yu Gothic UI"))
+  # update_geom_defaults("label", list(family = "Yu Gothic UI"))
 
       bigram_net() %>%
         bigram_network_plot(freq = freq(),
@@ -102,7 +106,6 @@ bigramServer <- function(id, data_in){
                             text_size   = input$text_size,
                             font_family = font_family)
     })
-
 
     bigram_network_detail <- reactive({
       bigram_network_raw() + 
@@ -123,122 +126,16 @@ bigramServer <- function(id, data_in){
     })
 
     # Render
-    output$bigram_network_detail <- renderPlot(res = 96, {
-      if(input$show_axis) bigram_network_detail()
-      else                bigram_network_detail_noscale()
-    })
-    output$bigram_network <- renderPlot(res = 96, {
-      if(input$show_axis) bigram_network_raw()
-      else                bigram_network_raw_noscale()
-    })
-
-
-  #     # bigram
-  #     bigram <- reactive({
-  #       data_in %>%
-  #         dplyr::group_by(text_id) %>%
-  #         # according to arrow direction in ggplot: "word_2-word_1"
-  #         dplyr::transmute(text_id, word_2 = term, word_1 = dplyr::lag(term), bigram = stringr::str_c(word_2, " - ", word_1)) %>%
-  #         dplyr::ungroup() %>%
-  #         na.omit() %>%
-  #         dplyr::group_by(word_1, word_2) %>%
-  #         dplyr::summarise(freq = dplyr::n()) %>%
-  #         dplyr::ungroup() %>%                     # if keep group, slice do not work
-  #         dplyr::arrange(dplyr::desc(freq))
-  #     })
-  # 
-  #     # Show table
-  #     output$table <- renderReactable({
-  #       req(bigram())
-  #       bigram() %>%
-  #         dplyr::select(word_1, word_2, freq) %>% 
-  #         reactable::reactable(resizable = TRUE, filterable = TRUE, searchable = TRUE,)
-  #     })
-  # 
-  # 
-  #     # Download bigram data
-  #     download_tsv_dataServer("download_bigram_data", bigram(), "bigram")
-  # 
-  # 
-  #     # word frequency
-  #     freq_ratio <- reactive({
-  #       term <- 
-  #         bigram_net() %>%
-  #         igraph::V() %>%
-  #         .$name
-  #       data_in %>%
-  #         dplyr::group_by(term) %>%
-  #         dplyr::tally() %>%
-  #         dplyr::left_join(tibble::tibble(term = term), .) %>%
-  #         .$n %>%
-  #         log() %>%
-  #         round(0) * 2
-  #     })
-  # 
-  #     # bigram network
-  #     bigram_net <- reactive({
-  #       set.seed(input$rand_seed)
-  #       threshold <- input$threshold
-  #       bigram() %T>%
-  #         { freq_thresh <<- dplyr::slice(., threshold)$freq } %>%
-  #         dplyr::filter(freq > freq_thresh) %>%
-  #         graph_from_data_frame()
-  #     })
-  # 
-  #     # plot
-  #     bigram_network_raw <- reactive({
-  #       req(bigram_net())
-  # 
-  #       arrow_size  <- unit(input$arrow_size, 'mm')
-  #       circle_size <- input$circle_size
-  #       text_size   <- input$text_size
-  #   # use only in shiny.io
-  #   #       font_family <- input$font
-  #       font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
-  #       # "Noto Sans CJK JP"
-  #       # "Noto Serif CJK JP"
-  #         ""
-  #       } else {
-  #         "HiraKakuPro-W3"
-  #       }
-  #       bigram_net() %>%
-  #         ggraph(layout = "fr") +        # the most understandable layout
-  #         geom_edge_link(color  = input$arrow_col,  arrow = arrow(length = arrow_size), start_cap = circle(input$arrow_size, 'mm'), end_cap = circle(input$arrow_size, 'mm')) +
-  #         geom_node_point(color = input$circle_col, size = freq_ratio() * circle_size * 0.2) +  # default (5) means 5 * 0.2 = 1
-  #         geom_node_text(aes(label = name), vjust = 1, hjust = 1, size = text_size, family = font_family) +
-  #         ggplot2::theme_bw() + 
-  #         ggplot2::theme(axis.title.x = element_blank(),
-  #                        axis.title.y = element_blank())
-  #     })
-  # 
-  #     bigram_network_detail <- reactive({
-  #       bigram_network_raw() + 
-  #         scale_x_continuous(limits = input$detail_x) + 
-  #         scale_y_continuous(limits = input$detail_y)
-  #     })
-  # 
-  #     bigram_network_detail_noscale <- reactive({
-  #       bigram_network_raw() + 
-  #         scale_x_continuous(breaks = NULL, limits = input$detail_x) + 
-  #         scale_y_continuous(breaks = NULL, limits = input$detail_y)
-  #     })
-  # 
-  #     bigram_network_raw_noscale <- reactive({
-  #       bigram_network_raw() +
-  #         scale_x_continuous(breaks = NULL) + 
-  #         scale_y_continuous(breaks = NULL)
-  #     })
-  # 
-  # 
-  #     # Render
-  #     output$bigram_network_detail <- renderPlot(res = 96, {
-  #       if(input$show_axis) bigram_network_detail()
-  #       else                bigram_network_detail_noscale()
-  #     })
-  #     output$bigram_network <- renderPlot(res = 96, {
-  #       if(input$show_axis) bigram_network_raw()
-  #       else                bigram_network_raw_noscale()
-  #     })
+    output$bigram_network_detail <- renderPlot(
+      res = 96, family = "Meiryo UI", {
+        if(input$show_axis) bigram_network_detail()
+        else                bigram_network_detail_noscale()
+      })
+    output$bigram_network <- renderPlot(
+      res = 96, family = "Yu Mincho",{
+        if(input$show_axis) bigram_network_raw()
+        else                bigram_network_raw_noscale()
+      })
 
   })
 }
