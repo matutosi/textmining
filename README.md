@@ -23,7 +23,7 @@ Rご利用されている方は，以下のページの内容をもとにご自�
 ``` r
   # Install packages (need only once)
 if(!require("devtools"))        install.packages("devtools")
-                                devtools::install_github("matutosi/moranajp", force = TRUE)
+if(!require("moranajp"))        install.packages("moranajp")  # (>= 0.9.5)
 if(!require("shiny"))           install.packages("shiny")
 if(!require("shinycssloaders")) install.packages("shinycssloaders")
 if(!require("tidyverse"))       install.packages("tidyverse")
