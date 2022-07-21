@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 The goal of textmining is to support textmining visualization.
 
 textminingはテキストマイニングの図化を支援するツールです．
-2022年5月時点では，バイグラムの分析・図化が主にできることです．
+2022年5月時点では，バイグラムの分析・図化ができます．
 
 
 ## How to use
