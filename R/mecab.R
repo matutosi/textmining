@@ -46,7 +46,8 @@ mecabServer <- function(id, data_in){
     })
 
     # Return
-    reactive({ mecab() }) 
+  #     reactive({ mecab() }) 
+    mecab()
 
   })
 }

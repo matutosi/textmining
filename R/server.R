@@ -8,7 +8,7 @@ function(input, output, session){
   # # # # # # # # # # # # # # # # # # 
 
   # # # Data load # # #
-  analayzed_data <- load_dataServer("load_analyzed_data", example_data = example_data_analyzed())
+  analayzed_data <- reactive({ load_dataServer("load_analyzed_data", example_data = example_data_analyzed()) })
 
   # # # cleaning # # #
   chamame_res <- reactive({ clean_chamame_2(analayzed_data()) }) 
@@ -24,10 +24,10 @@ function(input, output, session){
   # # # # # # # # # # # # # # # # # # 
 
   # # # Data load # # #
-  raw_data <- load_dataServer("load_raw_data", example_data = example_data_raw())
+  raw_data <- reactive({ load_dataServer("load_raw_data", example_data = example_data_raw()) })
 
   # # # moranajp # # #
-  mecab_local <- mecabServer("mecab_local", raw_data())
+  mecab_local <- reactive({ mecabServer("mecab_local", raw_data()) })
 
   # # # cleaning # # #
   mecab_res <- reactive({ clean_mecab_local_2(mecab_local()) })

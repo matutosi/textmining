@@ -69,7 +69,9 @@ load_dataServer <- function(id, example_data){
   #             readr::read_txv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
           )
         }
-    if(inherits(data_in, "try-error")) data_in <- tibble::tibble("Select correct file encoding" = "")
+    if(inherits(data_in, "try-error")){
+      data_in <- tibble::tibble("Select correct file encoding" = "")
+    }
     data_in
     })
 
@@ -102,9 +104,10 @@ load_dataServer <- function(id, example_data){
     })
 
     # Return data
-    reactive({
       dplyr::select(data_in(), input$select_col)
-    })
+  #     reactive({
+  #       dplyr::select(data_in(), input$select_col)
+  #     })
 
   })
 }
