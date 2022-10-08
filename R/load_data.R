@@ -39,7 +39,9 @@ load_dataUI <- function(id) {
         ),
 
       mainPanel(
-        reactableOutput(ns("table")),
+        shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
+          reactableOutput(ns("table")),
+        )
       )
 
     )
