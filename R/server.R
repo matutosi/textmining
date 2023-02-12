@@ -3,37 +3,20 @@ function(input, output, session){
 
   # # # # # # # # # # # # # # # # # # 
   # 
-  #      ANALYZED data
+  #  Ver. 2
   # 
   # # # # # # # # # # # # # # # # # # 
 
   # # # Data load # # #
-  analayzed_data <- reactive({ load_dataServer("load_analyzed_data", example_data = example_data_analyzed()) })
-
-  # # # cleaning # # #
-  chamame_res <- reactive({ clean_chamame_2(analayzed_data()) }) 
-
-  # # # Bigram # # #
-  bigramServer("bigram_analyzed", chamame_res())
-
-
-  # # # # # # # # # # # # # # # # # # 
-  # 
-  #      RAW data
-  # 
-  # # # # # # # # # # # # # # # # # # 
-
-  # # # Data load # # #
-  raw_data <- reactive({ load_dataServer("load_raw_data", example_data = example_data_raw()) })
+  text <- reactive({ load_textServer("load_text", example_data = example_text()) })
 
   # # # moranajp # # #
-  mecab_local <- reactive({ mecabServer("mecab_local", raw_data()) })
+  chamame <- reactive({ chamameServer("mecab_local", raw_data()) })
 
   # # # cleaning # # #
-  mecab_res <- reactive({ clean_mecab_local_2(mecab_local()) })
+  clean_up <- reactive({ clean_up(chamame()) })
 
   # # # Bigram # # #
-  bigramServer("bigram_raw", mecab_res())
-
+  bigramServer("bigram", clean_up())
 
 }
