@@ -1,27 +1,39 @@
   # https://matutosi.shinyapps.io/ecanvis/
 function(input, output, session){
 
-  # # # # # # # # # # # # # # # # # #
-  #
-  #  Ver. 2
-  #
-  # # # # # # # # # # # # # # # # # #
+  # # # # # # # # # # # # # # # # # # 
+  # 
+  #      ANALYZED data
+  # 
+  # # # # # # # # # # # # # # # # # # 
 
   # # # Data load # # #
-  text <- reactive({ load_textServer("load_text", example_data = example_text()) })
+  analayzed_data <- reactive({ load_dataServer("load_analyzed_data", example_data = example_data_analyzed()) })
 
-  # # # moranajp # # #
-  chamame <- reactive({ chamameServer(text()) })
-
-  # # # clean up # # #
-  clean_up <- reactive({ clean_up(chamame()) })
+  # # # cleaning # # #
+  chamame_res <- reactive({ clean_chamame_2(analayzed_data()) }) 
 
   # # # Bigram # # #
-  bigramServer(clean_up())
+  bigramServer("bigram_analyzed", chamame_res())
+
+
+  # # # # # # # # # # # # # # # # # # 
+  # 
+  #      RAW data
+  # 
+  # # # # # # # # # # # # # # # # # # 
+
+  # # # Data load # # #
+  raw_data <- reactive({ load_dataServer("load_raw_data", example_data = example_data_raw()) })
+
+  # # # moranajp # # #
+  mecab_local <- reactive({ mecabServer("mecab_local", raw_data()) })
+
+  # # # cleaning # # #
+  mecab_res <- reactive({ clean_mecab_local_2(mecab_local()) })
+
+  # # # Bigram # # #
+  bigramServer("bigram_raw", mecab_res())
+
 
 }
-# file_upload()
-# moranajp::chamame()
-# moranajp::clean_up()
-# moranajp::bigram()       関数名は正しい?
-# moranajp::draw_bigram() 関数名は正しい?

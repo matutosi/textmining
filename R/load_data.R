@@ -1,6 +1,11 @@
-## Example text
-example_text <- function(){
-  readr::read_tsv("data/review.txt")
+## Example data raw
+example_data_raw <- function() {
+  readr::read_delim("data/review.txt")
+}
+## Example data review
+example_data_analyzed <- function() {
+  col_types <- stringr::str_c(c(rep("c", 13), "_"), collapse = "")
+  readr::read_csv("data/review.csv", col_types = col_types)
 }
 
 ## UI module
@@ -34,9 +39,7 @@ load_dataUI <- function(id) {
         ),
 
       mainPanel(
-        shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
-          reactableOutput(ns("table")),
-        )
+        reactableOutput(ns("table")),
       )
 
     )
