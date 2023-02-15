@@ -1,22 +1,27 @@
   # https://matutosi.shinyapps.io/ecanvis/
 function(input, output, session){
 
-  # # # # # # # # # # # # # # # # # # 
-  # 
+  # # # # # # # # # # # # # # # # # #
+  #
   #  Ver. 2
-  # 
-  # # # # # # # # # # # # # # # # # # 
+  #
+  # # # # # # # # # # # # # # # # # #
 
   # # # Data load # # #
   text <- reactive({ load_textServer("load_text", example_data = example_text()) })
 
   # # # moranajp # # #
-  chamame <- reactive({ chamameServer("mecab_local", raw_data()) })
+  chamame <- reactive({ chamameServer(text()) })
 
-  # # # cleaning # # #
+  # # # clean up # # #
   clean_up <- reactive({ clean_up(chamame()) })
 
   # # # Bigram # # #
-  bigramServer("bigram", clean_up())
+  bigramServer(clean_up())
 
 }
+# file_upload()
+# moranajp::chamame()
+# moranajp::clean_up()
+# moranajp::bigram()       関数名は正しい?
+# moranajp::draw_bigram() 関数名は正しい?

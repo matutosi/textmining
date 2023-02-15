@@ -24,9 +24,3 @@ navbarPage("textmining",
   ),
 
 )
-
-# file_upload()
-# moranajp::chamame()
-# moranajp::clean_up()
-# moranajp::bigram()       関数名は正しい?
-# moranajp::draw_bigram() 関数名は正しい?
