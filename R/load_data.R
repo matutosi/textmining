@@ -1,11 +1,6 @@
-## Example data raw
-example_data_raw <- function() {
-  readr::read_delim("data/review.txt")
-}
-## Example data review
-example_data_analyzed <- function() {
-  col_types <- stringr::str_c(c(rep("c", 13), "_"), collapse = "")
-  readr::read_csv("data/review.csv", col_types = col_types)
+## Example text
+example_text <- function(){
+  readr::read_tsv("data/review.txt")
 }
 
 ## UI module
