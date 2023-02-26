@@ -9,18 +9,18 @@ navbarPage("textmining",
 
   # # # Data load # # #
   tabPanel("Read text",
-    tags$h3("Select ONE column (text)."),
-    load_dataUI("load_text")
+  #     tags$h3("Select ONE column (text)."),
+    load_dataUI("load_text"),
   ),
 
   # # # chamame # # #
-  tabPanel("Chamame",
-    mecabUI("chamame")
-  ),
+  #   tabPanel("Chamame",
+  #     mecabUI("chamame")
+  #   ),
 
   # # Bigram # # #
-  tabPanel("Bigram",
-    bigramUI("bigram")
-  ),
+  #   tabPanel("Bigram",
+  #     bigramUI("bigram")
+  #   ),
 
 )

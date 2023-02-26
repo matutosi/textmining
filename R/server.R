@@ -8,20 +8,21 @@ function(input, output, session){
   # # # # # # # # # # # # # # # # # #
 
   # # # Data load # # #
-  text <- reactive({ load_textServer("load_text", example_data = example_text()) })
+  #   text <- reactive({ load_dataServer("load_text", example_data = example_text()) })
+  load_dataServer("load_text", example_data = example_text())
 
   # # # moranajp # # #
-  chamame <- reactive({ chamameServer(text()) })
+  #   chamame <- reactive({ chamameServer(text()) })
 
   # # # clean up # # #
-  clean_up <- reactive({ clean_up(chamame()) })
+  #   clean_up <- reactive({ clean_up(chamame()) })
 
   # # # Bigram # # #
-  bigramServer(clean_up())
+  #   bigramServer(clean_up())
 
 }
-# file_upload()
-# moranajp::chamame()
-# moranajp::clean_up()
-# moranajp::bigram()       関数名は正しい?
-# moranajp::draw_bigram() 関数名は正しい?
+  # file_upload()
+  # moranajp::chamame()
+  # moranajp::clean_up()
+  # moranajp::bigram()       関数名は正しい?
+  # moranajp::draw_bigram() 関数名は正しい?
