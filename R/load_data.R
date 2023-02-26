@@ -18,45 +18,45 @@ histogramServer <- function(id) {
 load_dataUI <- function(id){
   ns <- NS(id)
   tagList(
-  #     sidebarLayout(
+    sidebarLayout(
   #       sidebarPanel(),
   #       mainPanel(
   #         plotOutput(ns("test"))
   #       )
   # 
-  #       sidebarPanel(
-  # 
-  #         # Instruction
-  #         tags$ol(
-  #           tags$li('Select "Use example data" or "Upload file"'),
-  #           tags$li('Select column to use bigram'),
-  #         ),
-  # 
-  #         # Example or upload file
-  #         fileInput(ns("file"), "upload file"),
-  #         checkboxInput(ns("file_s_jis"), "Encoding: S-JIS (CP932) JP Windows", value = FALSE),
-  #         tags$hr(),
-  #         checkboxInput(ns("use_example"), "Use example data", value = TRUE),
-  #         tags$hr(),
-  # 
-  #         # Select column
-  #         selectInput(ns("select_col"), "Select column",
-  #           choices = character(0), multiple = TRUE),
-  # 
-  #       # Downlod example
-  #         tags$hr(),
-  #           downloadButton(ns("dl_example_data"), "Downlaod example data"),
-  #           htmlOutput(ns("download_example")),
-  #         ),
-  # 
-  #       mainPanel(
+      sidebarPanel(
+
+        # Instruction
+        tags$ol(
+          tags$li('Select "Use example data" or "Upload file"'),
+          tags$li('Select column to use bigram'),
+        ),
+
+        # Example or upload file
+        fileInput(ns("file"), "upload file"),
+        checkboxInput(ns("file_s_jis"), "Encoding: S-JIS (CP932) JP Windows", value = FALSE),
+        tags$hr(),
+        checkboxInput(ns("use_example"), "Use example data", value = TRUE),
+        tags$hr(),
+
+        # Select column
+        selectInput(ns("select_col"), "Select column",
+          choices = character(0), multiple = TRUE),
+
+      # Downlod example
+        tags$hr(),
+          downloadButton(ns("dl_example_data"), "Downlaod example data"),
+          htmlOutput(ns("download_example")),
+      ),
+
+      mainPanel(
   #         reactableOutput(ns("table"))
         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
           reactableOutput(ns("table")),
         )
-  #       )
-  # 
-  #     )
+      )
+
+    )
   )
 }
 
