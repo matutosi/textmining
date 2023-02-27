@@ -1,29 +1,8 @@
-histogramUI <- function(id) {
-  tagList(
-    selectInput(NS(id, "var"), "Variable", choices = names(mtcars)),
-    numericInput(NS(id, "bins"), "bins", value = 10, min = 1),
-    plotOutput(NS(id, "hist"))
-  )
-}
-histogramServer <- function(id) {
-  moduleServer(id, function(input, output, session) {
-    data <- reactive(mtcars[[input$var]])
-    output$hist <- renderPlot({
-      hist(data(), breaks = input$bins, main = input$var)
-    }, res = 96)
-  })
-}
-
 ## UI module
 load_dataUI <- function(id){
   ns <- NS(id)
   tagList(
     sidebarLayout(
-  #       sidebarPanel(),
-  #       mainPanel(
-  #         plotOutput(ns("test"))
-  #       )
-  # 
       sidebarPanel(
 
         # Instruction
@@ -40,8 +19,7 @@ load_dataUI <- function(id){
         tags$hr(),
 
         # Select column
-        selectInput(ns("select_col"), "Select column",
-          choices = character(0), multiple = TRUE),
+        selectInput(ns("select_col"), "Select column", choices = character(0)),
 
       # Downlod example
         tags$hr(),
@@ -50,7 +28,6 @@ load_dataUI <- function(id){
       ),
 
       mainPanel(
-  #         reactableOutput(ns("table"))
         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
           reactableOutput(ns("table")),
         )
@@ -62,69 +39,71 @@ load_dataUI <- function(id){
 
 ## Example text
 example_text <- function(){
-  readr::read_tsv("data/review.txt")
+  moranajp::unescape_utf(review)
 }
 
 ## Server module
 load_dataServer <- function(id, example_data){
   moduleServer(id, function(input, output, session){
 
-    output$table <- renderReactable({
-      reactable::reactable(moranajp::unescape_utf(review), resizable = TRUE, filterable = TRUE, searchable = TRUE)
+    # # # File name to upload # # #
+    uploaded_file <- reactive({
+      req(input$file)
+      input$file
     })
 
-  #     # File name to upload
-  #     uploaded_file <- reactive({
-  #       req(input$file)
-  #       input$file
-  #     })
-  # 
-  #     data_in <- reactive({
-  #       locale <- if(input$file_s_jis) readr::locale(encoding = "CP932")
-  #         else                         readr::default_locale()
-  #       data_in <-
-  #         if(input$use_example){
-  #           example_data
-  #         } else {
-  #           req(input$file)
-  #           try(
-  #             readr::read_csv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
-  #           )
-  #         }
-  #     if(inherits(data_in, "try-error")){
-  #       data_in <- tibble::tibble("Select correct file encoding" = "")
-  #     }
-  #     data_in
-  #     })
-  # 
-  #     # # # Update selectInput # # #
-  #     observeEvent(c(data_in(), input$use_example), {
-  #       choices <- colnames(data_in())
-  #       selected <-
-  #         if(length(choices) <5  ) choices[1]
-  #         else                     choices[c(12, 6)]
-  #       updateSelectInput(session, "select_col", choices = choices, selected = selected)
-  #     })
-  # 
-  #     # Download example
-  #     output$download_example <-
-  #       renderUI("Example data: T. MATSUMURA et. al 2014.
-  #         Vegetation Science, 31, 193-218.
-  #         doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
-  #       filename <- "example_data.csv"
-  #     output$dl_example_data <- downloadHandler(
-  #       filename = filename,
-  #       content  = function(file) { readr::write_csv(example_data, file) }
-  #     )
-  # 
-  #     # Show table
-  #     output$table <- renderReactable({
-  #       reactable::reactable(dplyr::relocatme(data_in(), any_of(input$select_col)),
-  #                            resizable = TRUE, filterable = TRUE, searchable = TRUE)
-  #     })
-  # 
-  #     # Return data
-  #       dplyr::select(data_in(), input$select_col)
+    data_in <- reactive({
+      locale <- if(input$file_s_jis) readr::locale(encoding = "CP932")
+        else                         readr::default_locale()
+      data_in <-
+        if(input$use_example){
+          example_data
+        } else {
+          req(input$file)
+          try(
+            readr::read_csv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
+          )
+        }
+      if(inherits(data_in, "try-error")){
+        data_in <- tibble::tibble("Select correct file encoding" = "")
+      }
+      data_in
+    })
+
+    # # # Update selectInput # # #
+    observeEvent(c(data_in(), input$use_example), {
+      choices <- colnames(data_in())
+      selected <-
+        if(length(choices) < 5 ) choices[1]
+        else                     choices[c(12, 6)]
+      updateSelectInput(session, "select_col", choices = choices, selected = selected)
+    })
+
+    # # # Download example # # #
+    output$download_example <-
+      renderUI("Example data: T. MATSUMURA et. al 2014.
+        Vegetation Science, 31, 193-218.
+        doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
+
+    filename <- "example_data.csv"
+    output$dl_example_data <- downloadHandler(
+      filename = filename,
+      content  = function(file) { readr::write_csv(example_data, file) }
+    )
+
+    # # # Show table # # #
+    output$table <- renderReactable({
+      reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
+    })
+
+    # # # Selected text # # #
+    observeEvent(c(data_in(), input$select_col), {
+      if(length(input$select_col) > 0){
+        data_in <- reactive({ dplyr::select(data_in(), any_of(input$select_col)) })
+      }
+    })
+
+  data_in
 
   })
 }

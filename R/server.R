@@ -9,7 +9,7 @@ function(input, output, session){
 
   # # # Data load # # #
   #   text <- reactive({ load_dataServer("load_text", example_data = example_text()) })
-  load_dataServer("load_text", example_data = example_text())
+  text <- load_dataServer("load_text", example_data = example_text())
 
   # # # moranajp # # #
   #   chamame <- reactive({ chamameServer(text()) })
