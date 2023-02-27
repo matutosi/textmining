@@ -12,6 +12,7 @@ function(input, output, session){
   text <- load_dataServer("load_text", example_data = example_text())
 
   # # # moranajp # # #
+  chamame <- chamameServer("chamame", text())
   #   chamame <- reactive({ chamameServer(text()) })
 
   # # # clean up # # #

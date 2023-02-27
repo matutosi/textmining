@@ -15,7 +15,7 @@ navbarPage("textmining",
 
   # # # chamame # # #
   tabPanel("Chamame",
-  #     mecabUI("chamame")
+    chamameUI("chamame")
   ),
 
   # # Bigram # # #

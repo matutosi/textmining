@@ -23,7 +23,7 @@ library(reactable)
   # library(ggraph)
 
 source("load_data.R")
-  # source("mecab.R")
+source("chamame.R")
   # source("cleaning.R")
   # source("bigram.R")
   # source("download_data.R")
