@@ -13,8 +13,8 @@ bigramUI <- function(id) {
         numericInput(ns("rand_seed"), "Seed of random number generation", value = 12, min = 1, max = 100),
         sliderInput(ns("threshold"), "Number of bigram for plot", value = 100, min = 50, max = 200),
 
-        colourInput(ns("arrow_col"),  "Arrow colour",  value = "darkgreen"),
-        colourInput(ns("circle_col"), "Circle colour", value = "skyblue"),
+        colourpicker::colourInput(ns("arrow_col"),  "Arrow colour",  value = "darkgreen"),
+        colourpicker::colourInput(ns("circle_col"), "Circle colour", value = "skyblue"),
 
         sliderInput(ns("arrow_size"),  "Arrow_size",  value = 4, min = 1, max = 10),
         sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
@@ -73,7 +73,6 @@ bigramServer <- function(id, data_chamame){
     big_net <- reactive({
       moranajp::bigram_network(big(), rand_seed = input$rand_seed, threshold = input$threshold)
     })
-
 
     # plot
     big_net_raw <- reactive({
