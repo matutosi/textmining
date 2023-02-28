@@ -40,6 +40,7 @@ load_dataUI <- function(id){
 ## Example text
 example_text <- function(){
   moranajp::unescape_utf(review)
+  #   moranajp::unescape_utf(review) %>% utils::head(20) # for test
 }
 
 ## Server module
