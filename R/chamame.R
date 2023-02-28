@@ -30,11 +30,13 @@ chamameServer <- function(id, data_in){
 
     # Run moranajp_all
     chamame <- reactive({
-      text_col <- colnames(data_in)[1]
+      text_col <- colnames(data_in())[1]
       col_lang <- input$lang
   # print(data_in); print(text_col); print(col_lang)  # for debug
-      data_in %>%
-        moranajp::moranajp_all(method = "chamame", text_col = text_col, col_lang = col_lang)
+      data_in() %>%
+        moranajp::moranajp_all(method = "chamame", text_col = text_col, col_lang = col_lang) %>%
+          moranajp::add_sentence_no() %>%
+          moranajp::clean_up()
     })
 
     # Show table
@@ -43,6 +45,10 @@ chamameServer <- function(id, data_in){
     })
 
     # Return value
+printx(chamame)
+  # printx(chamame())  # error 
+  #     Warning: Error in .getReactiveEnvironment()$currentContext: Operation not allowed without an active reactive context.
+  #     You tried to do something that can only be done from inside a reactive consumer.
     chamame
 
   })
