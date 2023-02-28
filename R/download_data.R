@@ -2,7 +2,7 @@
 download_tsv_dataUI <- function(id, label = "Download file") {
   ns <- NS(id)
   tagList(
-    downloadButton(ns("data_download_tsv"), "Download tsv data"),
+    downloadButton(ns("data_download_tsv"), label),
   )
 }
 
