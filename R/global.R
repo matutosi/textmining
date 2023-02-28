@@ -43,7 +43,7 @@ source("download_data.R")
   #   https://mana.bi/wiki.cgi?page=shinyapps%2Eio%A4%C7%C7%A4%B0%D5%A4%CE%C6%FC%CB%DC%B8%EC%A5%D5%A5%A9%A5%F3%A5%C8%A4%F2%BB%C8%A4%A6
   #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #
 
-  # use only in shiny.io
+    # # # use only in shiny.io # # #
   # 4 fonts
   # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_4_font.sh",
   #   destfile = "use_4_font.sh")

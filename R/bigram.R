@@ -11,7 +11,6 @@ bigramUI <- function(id) {
     sidebarLayout(
       sidebarPanel(
 
-  #         selectInput(ns("chap"), "chap", choices = 1:4),
         sliderInput(ns("detail_x"), "X range of detail plot", value = c(-5, 5), min = -20, max = 20, step = 0.5),
         sliderInput(ns("detail_y"), "Y range of detail plot", value = c(-5, 5), min = -20, max = 20, step = 0.5),
 
@@ -26,11 +25,10 @@ bigramUI <- function(id) {
         sliderInput(ns("arrow_size"),  "Arrow_size",  value = 4, min = 1, max = 10),
         sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
         sliderInput(ns("text_size"),   "Text size",   value = 5, min = 1, max = 10),
-  # use only in shiny.io
+    # # # # use only in shiny.io # # # #
   #         selectInput(ns("font"), "Font", 
   #           choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
   #                       "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
-
 
         download_tsv_dataUI(ns("download_bigram_data"), "DL bigram data"),
 
@@ -88,7 +86,7 @@ bigramServer <- function(id, data_chamame){
     # plot
     big_net_raw <- reactive({
       req(big_net())
-      # use only in shiny.io
+      # # # use only in shiny.io # # #
       #       font_family <- input$font
       font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
         # "Yu Mincho"
@@ -125,7 +123,7 @@ bigramServer <- function(id, data_chamame){
         scale_y_continuous(breaks = NULL, limits = input$detail_y)
     })
 
-    big_ne_raw_noscale <- reactive({
+    big_net_raw_noscale <- reactive({
       big_net_raw() +
         scale_x_continuous(breaks = NULL) + 
         scale_y_continuous(breaks = NULL)
