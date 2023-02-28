@@ -21,12 +21,6 @@ source("bigram.R")
 source("download_data.R")
 source("utils.R")
 
-  # windowsFonts(
-  #   `Yu Mincho` = windowsFont("Yu Mincho"),
-  #   `Yu Gothic` = windowsFont("Yu Gothic"),
-  #   `Meiryo UI` = windowsFont("Meiryo UI")
-  # )
-
   #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #
   #
   # Japanese font settings
@@ -40,4 +34,13 @@ source("utils.R")
     # # # use only in shiny.io # # #
     # # 4 fonts
     # # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_4_font.sh", destfile = "use_4_font.sh")
-  # system("bash ./use_4_font.sh")
+if(get_os() == "linux"){
+  system("bash ./use_4_font.sh")
+}
+
+font_win   <- c("Meiryo UI", "Yu Gothic", "Yu Mincho")
+font_linux <- c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")
+font_mac   <- c("HiraKakuPro-W3", "HiraginoSans-W0", "YuMin-Medium", "YuKyo-Medium")
+if(get_os() == "win")  { font_choices <- font_win   }
+if(get_os() == "linux"){ font_choices <- font_linux }
+if(get_os() == "mac")  { font_choices <- font_mac   }

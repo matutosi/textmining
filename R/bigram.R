@@ -19,10 +19,8 @@ bigramUI <- function(id) {
         sliderInput(ns("arrow_size"),  "Arrow_size",  value = 4, min = 1, max = 10),
         sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
         sliderInput(ns("text_size"),   "Text size",   value = 5, min = 1, max = 10),
-    # # # # use only in shiny.io # # # #
-        selectInput(ns("font"), "Font", 
-          choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
-                      "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
+
+        selectInput(ns("font"), "Font", choices = font_choices),
 
         download_tsv_dataUI(ns("dl_bigram_data"), "DL bigram data (tsv)"),
 
@@ -80,19 +78,7 @@ bigramServer <- function(id, data_chamame){
     # plot
     big_net_raw <- reactive({
       req(big_net())
-      font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
-        # "Yu Mincho"
-        # "Noto Sans CJK JP"
-        # "Noto Serif CJK JP"
-        #         ""
-        "Meiryo UI"
-      } else {
-        "HiraKakuPro-W3"
-      }
-            # # # use only in shiny.io # # #
-  #       font_family <- input$font
-  # update_geom_defaults("text", list(family = "Yu Gothic UI"))
-  # update_geom_defaults("label", list(family = "Yu Gothic UI"))
+      font_family <- input$font
 
       big_net() %>%
         moranajp::bigram_network_plot(
