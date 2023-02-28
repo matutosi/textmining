@@ -12,18 +12,9 @@ function(input, output, session){
   text <- load_dataServer("load_text", example_data = example_text())
 
   # # # moranajp # # #
-  chamame <- chamameServer("chamame", text())
-  #   chamame <- reactive({ chamameServer(text()) })
-
-  # # # clean up # # #
-  #   clean_up <- reactive({ clean_up(chamame()) })
+  chamame <- chamameServer("chamame", text)
 
   # # # Bigram # # #
-  #   bigramServer(clean_up())
+  bigramServer("bigram", chamame)
 
 }
-  # file_upload()
-  # moranajp::chamame()
-  # moranajp::clean_up()
-  # moranajp::bigram()       関数名は正しい?
-  # moranajp::draw_bigram() 関数名は正しい?

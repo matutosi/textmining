@@ -19,8 +19,8 @@ navbarPage("textmining",
   ),
 
   # # Bigram # # #
-  #   tabPanel("Bigram",
-  #     bigramUI("bigram")
-  #   ),
+  tabPanel("Bigram",
+    bigramUI("bigram")
+  ),
 
 )

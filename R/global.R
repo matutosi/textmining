@@ -19,14 +19,13 @@ library(shinycssloaders)
 devtools::load_all("d:/matu/work/todo/moranajp/")
   # library(moranajp)
 library(reactable)
-  # library(igraph)
-  # library(ggraph)
+library(igraph)
+library(ggraph)
 
 source("load_data.R")
 source("chamame.R")
-  # source("cleaning.R")
-  # source("bigram.R")
-  # source("download_data.R")
+source("bigram.R")
+source("download_data.R")
 
   # windowsFonts(
   #   `Yu Mincho` = windowsFont("Yu Mincho"),
