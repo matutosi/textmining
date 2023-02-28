@@ -8,34 +8,14 @@ navbarPage("textmining",
   # # # # # # # # # # # # # # # # # # 
 
   # # # Data load # # #
-  tabPanel("Read ALANYZED data",
-    tags$h3("1. Prepare tokenized data using https://chamame.ninjal.ac.jp/ (download csv data with UTF-8.)"),
-    tags$h3("2. Select TWO columns."),
-    tags$h4("First: word column, Second: POS (Position Of Speech) column. (maybe OK in default settings)"),
-    load_dataUI("load_analyzed_data")
-  ),
-
-  # # # Bigram # # #
-  tabPanel("Bigram (analyzed data)",
-    bigramUI("bigram_analyzed")
-  ),
-
-
-  # # # # # # # # # # # # # # # # # # 
-  # 
-  #      RAW data
-  # 
-  # # # # # # # # # # # # # # # # # # 
-
-  # # # Data load # # #
-  tabPanel("Read RAW data",
+  tabPanel("Read text",
     tags$h3("Select ONE column (text)."),
-    load_dataUI("load_raw_data")
+    load_dataUI("load_text"),
   ),
 
-  # # # MeCab # # #
-  tabPanel("MeCab",
-    mecabUI("mecab_local")
+  # # # chamame # # #
+  tabPanel("Chamame",
+    chamameUI("chamame")
   ),
 
   # # Bigram # # #

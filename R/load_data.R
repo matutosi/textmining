@@ -1,15 +1,5 @@
-## Example data raw
-example_data_raw <- function() {
-  readr::read_delim("data/review.txt")
-}
-## Example data review
-example_data_analyzed <- function() {
-  col_types <- stringr::str_c(c(rep("c", 13), "_"), collapse = "")
-  readr::read_csv("data/review.csv", col_types = col_types)
-}
-
 ## UI module
-load_dataUI <- function(id) {
+load_dataUI <- function(id){
   ns <- NS(id)
   tagList(
     sidebarLayout(
@@ -29,14 +19,13 @@ load_dataUI <- function(id) {
         tags$hr(),
 
         # Select column
-        selectInput(ns("select_col"), "Select column",
-          choices = character(0), multiple = TRUE),
+        selectInput(ns("select_col"), "Select column", choices = character(0)),
 
       # Downlod example
         tags$hr(),
           downloadButton(ns("dl_example_data"), "Downlaod example data"),
           htmlOutput(ns("download_example")),
-        ),
+      ),
 
       mainPanel(
         reactableOutput(ns("table")),
@@ -46,11 +35,17 @@ load_dataUI <- function(id) {
   )
 }
 
+## Example text
+example_text <- function(){
+  moranajp::unescape_utf(review)
+  #   moranajp::unescape_utf(review) %>% utils::head(20) # for test
+}
+
 ## Server module
 load_dataServer <- function(id, example_data){
   moduleServer(id, function(input, output, session){
 
-    # File name to upload
+    # # # File name to upload # # #
     uploaded_file <- reactive({
       req(input$file)
       input$file
@@ -66,48 +61,48 @@ load_dataServer <- function(id, example_data){
           req(input$file)
           try(
             readr::read_csv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
-  #             readr::read_txv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
           )
         }
-    if(inherits(data_in, "try-error")){
-      data_in <- tibble::tibble("Select correct file encoding" = "")
-    }
-    data_in
+      if(inherits(data_in, "try-error")){
+        data_in <- tibble::tibble("Select correct file encoding" = "")
+      }
+      data_in
     })
-
 
     # # # Update selectInput # # #
     observeEvent(c(data_in(), input$use_example), {
       choices <- colnames(data_in())
       selected <-
-        if(length(choices) <5  ) choices[1]
+        if(length(choices) < 5 ) choices[1]
         else                     choices[c(12, 6)]
       updateSelectInput(session, "select_col", choices = choices, selected = selected)
     })
 
-
-    # Download example
+    # # # Download example # # #
     output$download_example <-
       renderUI("Example data: T. MATSUMURA et. al 2014.
         Vegetation Science, 31, 193-218.
-        doi: 10.15031/vegsci.31.193, analyzed by https://chamame.ninjal.ac.jp/")
-      filename <- "example_data.csv"
+        doi: 10.15031/vegsci.31.193")
+
+    filename <- "example_data.csv"
     output$dl_example_data <- downloadHandler(
       filename = filename,
       content  = function(file) { readr::write_csv(example_data, file) }
     )
 
-    # Show table
+    # # # Show table # # #
     output$table <- renderReactable({
-      reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)),
-                           resizable = TRUE, filterable = TRUE, searchable = TRUE)
+      reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
     })
 
-    # Return data
-      dplyr::select(data_in(), input$select_col)
-  #     reactive({
-  #       dplyr::select(data_in(), input$select_col)
-  #     })
+    # # # Selected text # # #
+    observeEvent(c(data_in(), input$select_col), {
+      if(length(input$select_col) > 0){
+        data_in <- reactive({ dplyr::select(data_in(), any_of(input$select_col)) })
+      }
+    })
+
+  data_in
 
   })
 }
