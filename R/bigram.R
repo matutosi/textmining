@@ -99,8 +99,8 @@ bigramServer <- function(id, data_chamame){
 
     big_net_detail_noscale <- reactive({
       big_net_raw() + 
-        scale_x_continuous(breaks = NULL, limits = input$detail_x) + 
-        scale_y_continuous(breaks = NULL, limits = input$detail_y)
+        ggplot2::scale_x_continuous(breaks = NULL, limits = input$detail_x) + 
+        ggplot2::scale_y_continuous(breaks = NULL, limits = input$detail_y)
     })
 
     big_net_raw_noscale <- reactive({
