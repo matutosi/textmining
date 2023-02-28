@@ -1,9 +1,3 @@
-printx <- function(x){
-  name <- substitute(x)
-  print(paste0(name, ": "))
-  print(x)
-}
-
 ## UI module
 bigramUI <- function(id) {
   ns <- NS(id)
@@ -26,11 +20,11 @@ bigramUI <- function(id) {
         sliderInput(ns("circle_size"), "Circle size", value = 5, min = 1, max = 10),
         sliderInput(ns("text_size"),   "Text size",   value = 5, min = 1, max = 10),
     # # # # use only in shiny.io # # # #
-  #         selectInput(ns("font"), "Font", 
-  #           choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
-  #                       "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
+        selectInput(ns("font"), "Font", 
+          choices = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", 
+                      "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP")),
 
-        download_tsv_dataUI(ns("download_bigram_data"), "DL bigram data"),
+        download_tsv_dataUI(ns("dl_bigram_data"), "DL bigram data (tsv)"),
 
       ),
 
@@ -70,7 +64,7 @@ bigramServer <- function(id, data_chamame){
     })
 
     # Download bigram data
-    download_tsv_dataServer("download_bigram_data", big(), "bigram")
+    download_tsv_dataServer("dl_bigram_data", big(), "bigram")
 
     # word frequency
     freq <- reactive({
@@ -86,8 +80,6 @@ bigramServer <- function(id, data_chamame){
     # plot
     big_net_raw <- reactive({
       req(big_net())
-      # # # use only in shiny.io # # #
-      #       font_family <- input$font
       font_family <- if(stringr::str_detect(Sys.getenv(c("OS")), "Windows")){
         # "Yu Mincho"
         # "Noto Sans CJK JP"
@@ -97,6 +89,8 @@ bigramServer <- function(id, data_chamame){
       } else {
         "HiraKakuPro-W3"
       }
+            # # # use only in shiny.io # # #
+  #       font_family <- input$font
   # update_geom_defaults("text", list(family = "Yu Gothic UI"))
   # update_geom_defaults("label", list(family = "Yu Gothic UI"))
 
@@ -113,8 +107,8 @@ bigramServer <- function(id, data_chamame){
 
     big_net_detail <- reactive({
       big_net_raw() + 
-        scale_x_continuous(limits = input$detail_x) + 
-        scale_y_continuous(limits = input$detail_y)
+        ggplot2::scale_x_continuous(limits = input$detail_x) + 
+        ggplot2::scale_y_continuous(limits = input$detail_y)
     })
 
     big_net_detail_noscale <- reactive({
@@ -125,8 +119,8 @@ bigramServer <- function(id, data_chamame){
 
     big_net_raw_noscale <- reactive({
       big_net_raw() +
-        scale_x_continuous(breaks = NULL) + 
-        scale_y_continuous(breaks = NULL)
+        ggplot2::scale_x_continuous(breaks = NULL) + 
+        ggplot2::scale_y_continuous(breaks = NULL)
     })
 
     # Render
