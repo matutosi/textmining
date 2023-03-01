@@ -1,0 +1,13 @@
+name: textmining2
+title: textmining2
+username:
+account: matutosi
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8441004
+bundleId: 6900166
+url: https://matutosi.shinyapps.io/textmining2/
+when: 1677636023.4827
+lastSyncTime: 1677636023.48279
+asMultiple: FALSE
+asStatic: FALSE
