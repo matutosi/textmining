@@ -18,3 +18,9 @@ font_choices <-
     "linux" = c("IPAexGothic", "Noto Sans CJK JP", "IPAexMincho", "Noto Serif CJK JP", "SetoFont"),
     "mac"   = c("HiraKakuPro-W3", "HiraginoSans-W0", "YuMin-Medium", "YuKyo-Medium")
   )
+
+if(0){ # # # # # TEST CODE # # # # # 
+
+
+
+}

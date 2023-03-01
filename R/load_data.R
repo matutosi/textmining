@@ -16,6 +16,7 @@ load_dataUI <- function(id){
         checkboxInput(ns("file_s_jis"), "Encoding: S-JIS (CP932) JP Windows", value = FALSE),
         tags$hr(),
         checkboxInput(ns("use_example"), "Use example data", value = TRUE),
+        checkboxInput(ns("use_all_rows"), "Use ALL rows", value = FALSE),
         tags$hr(),
 
         # Select column
@@ -35,12 +36,6 @@ load_dataUI <- function(id){
   )
 }
 
-## Example text
-example_text <- function(){
-  moranajp::unescape_utf(review)
-  #   moranajp::unescape_utf(review) %>% utils::head(20) # for test
-}
-
 ## Server module
 load_dataServer <- function(id, example_data){
   moduleServer(id, function(input, output, session){
@@ -56,7 +51,11 @@ load_dataServer <- function(id, example_data){
         else                         readr::default_locale()
       data_in <-
         if(input$use_example){
-          example_data
+          if(input$use_all_rows){
+            example_data
+          } else {
+            head(example_data, 20)
+          }
         } else {
           req(input$file)
           try(
