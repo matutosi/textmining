@@ -29,7 +29,7 @@ load_dataUI <- function(id){
 
       mainPanel(
         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
-          reactableOutput(ns("table")),
+          reactable::reactableOutput(ns("table")),
         )
       )
 
@@ -93,7 +93,7 @@ load_dataServer <- function(id, example_data){
     )
 
     # # # Show table # # #
-    output$table <- renderReactable({
+    output$table <- reactable::renderReactable({
       reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
     })
 

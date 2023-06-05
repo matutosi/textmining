@@ -36,7 +36,7 @@ bigramUI <- function(id) {
           plotOutput(ns("big_net"))
         ),
 
-       reactableOutput(ns("table")),
+       reactable::reactableOutput(ns("table")),
 
       ),
 
@@ -54,7 +54,7 @@ bigramServer <- function(id, data_chamame){
     })
 
     # Show table
-    output$table <- renderReactable({
+    output$table <- reactable::renderReactable({
       req(big())
       big() %>%
         dplyr::select(word_1, word_2, freq) %>% 

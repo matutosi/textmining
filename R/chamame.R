@@ -12,7 +12,7 @@ chamameUI <- function(id) {
 
       mainPanel(
         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
-          reactableOutput(ns("table")),
+          reactable::reactableOutput(ns("table")),
         ),
       ),
     )
@@ -44,7 +44,7 @@ chamameServer <- function(id, data_in){
     })
 
     # Show table
-    output$table <- renderReactable({
+    output$table <- reactable::renderReactable({
       reactable::reactable(chamame(), resizable = TRUE, filterable = TRUE, searchable = TRUE,)
     })
 
