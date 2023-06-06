@@ -1,6 +1,6 @@
 example_text <- function(){
-  #   moranajp::unescape_utf(review)
-  moranajp::unescape_utf(review) %>% utils::head() # for test
+  moranajp::unescape_utf(review)
+  #   moranajp::unescape_utf(review) %>% utils::head() # for test
 }
 
 example_stop_words <- function(){

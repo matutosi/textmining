@@ -12,12 +12,16 @@
 library(shiny)
 library(moranajp)
 
+  # ui.R
+  # server.R
+
   # source("load_data.R")
+source("upload_file.R")
+source("download_data.R")
 source("example_data.R")
 source("chamame.R")
+source("cleanup.R")
 source("bigram.R")
-source("download_data.R")
-source("upload_file.R")
 source("utils.R")
 
   #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #

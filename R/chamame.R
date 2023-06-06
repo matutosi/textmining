@@ -5,7 +5,7 @@ chamameUI <- function(id) {
     sidebarLayout(
       sidebarPanel(
         # Downlod morphorogical analysis data
-          download_tsv_dataUI(ns("dl_analysed_data"), "DL analysed data (tsv)"),
+          download_tsv_dataUI(ns("dl_analysed"), "DL analysed data (tsv)"),
       ),
 
       mainPanel(
@@ -39,7 +39,7 @@ chamameServer <- function(id, data_in){
     })
 
     # Download analysed data
-    download_tsv_dataServer("dl_analysed_data", chamame(), "chamame")
+    download_tsv_dataServer("dl_analysed", chamame(), "chamame")
 
     # Return value
   # printx(chamame)
