@@ -22,7 +22,7 @@ bigramUI <- function(id) {
 
         selectInput(ns("font"), "Font", choices = font_choices),
 
-        download_tsv_dataUI(ns("dl_bigram_data"), "DL bigram data (tsv)"),
+        download_tsv_dataUI(ns("dl_bigram"), "DL bigram data (tsv)"),
 
       ),
 
@@ -62,7 +62,7 @@ bigramServer <- function(id, data_chamame){
     })
 
     # Download bigram data
-    download_tsv_dataServer("dl_bigram_data", big(), "bigram")
+    download_tsv_dataServer("dl_bigram", big(), "bigram")
 
     # word frequency
     freq <- reactive({
