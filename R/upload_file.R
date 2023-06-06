@@ -3,7 +3,8 @@ upload_fileUI <- function(id,
                           instruction = "", 
                           use_example = TRUE, 
                           select_column = TRUE, 
-                          dl_example = TRUE){
+                          dl_example = TRUE,
+                          example_description = ""){
   ns <- NS(id)
   tagList(
     sidebarLayout(
@@ -34,13 +35,12 @@ upload_fileUI <- function(id,
           tagList()
         },
 
-
         # Downlod example
         if(dl_example){
-          tagList(
-            downloadButton(ns("dl_example"), paste0("DL example of ", id)),
-            htmlOutput(ns("download_example")),
-          )
+          download_tsv_dataUI(
+            id = ns("dl_example"), 
+            label = paste0("DL example of ", id), 
+            description = example_description)
         }else{
           tagList()
         },
@@ -58,7 +58,7 @@ upload_fileUI <- function(id,
 }
 
 ## Server module
-uploaded_fileServer <- function(id, example_data = NULL, example_description = ""){
+uploaded_fileServer <- function(id, example_data = NUL){
   moduleServer(id, function(input, output, session){
 
     # # # File name to upload # # #
@@ -95,13 +95,10 @@ uploaded_fileServer <- function(id, example_data = NULL, example_description = "
     })
 
     # # # Download example # # #
-    output$download_example <- renderUI(example_description)
-
-    filename <- paste0(id, "_example.tsv")
-    output$dl_example <- downloadHandler(
-      filename = filename,
-      content  = function(file) { readr::write_tsv(example_data, file) }
-    )
+    output$dl_example <- 
+      download_tsv_dataServer(id = "dl_example", 
+                              data = example_data, 
+                              filename = paste0(id, "_example"))
 
     # # # Show table # # #
     output$table <- reactable::renderReactable({
