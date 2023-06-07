@@ -26,7 +26,7 @@ function(input, output, session){
                     example_data = example_stop_words())
   stop_words_2 <- 
     reactive({
-      req(input$stop_words_2)
+  #       req(input$stop_words_2)
       input$stop_words_2
     })
 

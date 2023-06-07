@@ -39,7 +39,8 @@ cleanupServer <- function(id, chamame, stop_words_1, stop_words_2, synonym){
       if(input$use_synonym){
         synonym_df <- synonym()
       }else{
-        synonym_df <- tibble::tibble(from = "", to = "")
+        # need " " (space) to avoid empty pattern
+        synonym_df <- tibble::tibble(from = " ", to = " ") 
       }
 
       moranajp::clean_up(

@@ -5,10 +5,8 @@ account: matutosi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6391497
-bundleId: 5956666
+bundleId:
 url: https://matutosi.shinyapps.io/textmining/
-when: 1653821791.88948
-lastSyncTime: 1653821791.88952
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: mecab.R
+ignoredFiles: load_data.R

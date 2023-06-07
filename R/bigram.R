@@ -50,6 +50,7 @@ bigramServer <- function(id, data_chamame){
 
     # bigram
     big <- reactive({
+  # printx(data_chamame()) # for debig
       moranajp::bigram(data_chamame())
     })
 
