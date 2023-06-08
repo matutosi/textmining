@@ -1,35 +1,56 @@
 ## UI module
-load_dataUI <- function(id){
+upload_fileUI <- function(id, 
+                          instruction = "", 
+                          use_example = TRUE, 
+                          select_column = TRUE, 
+                          dl_example = TRUE,
+                          example_description = ""){
   ns <- NS(id)
   tagList(
     sidebarLayout(
       sidebarPanel(
 
         # Instruction
-        tags$ol(
-          tags$li('Select "Use example data" or "Upload file"'),
-          tags$li('Select column to use bigram'),
-        ),
+        str2li(instruction, ol = TRUE),
 
-        # Example or upload file
+        # Upload file
         fileInput(ns("file"), "upload file"),
-        checkboxInput(ns("file_s_jis"), "Encoding: S-JIS (CP932) JP Windows", value = FALSE),
-        tags$hr(),
-        checkboxInput(ns("use_example"), "Use example data", value = TRUE),
-        checkboxInput(ns("use_all_rows"), "Use ALL rows", value = FALSE),
-        tags$hr(),
+        checkboxInput(ns("file_s_jis"), "Encoding: S-JIS JP Windows", value = FALSE),
+
+        # Example 
+        if(use_example){
+          tagList(
+            checkboxInput(ns("use_example"), "Use example data", value = use_example),
+          )
+        }else{
+          tagList()
+        },
 
         # Select column
-        selectInput(ns("select_col"), "Select column", choices = character(0)),
+        if(select_column){
+          tagList(
+            selectInput(ns("select_col"), "Select column", choices = character(0)),
+          )
+        }else{
+          tagList()
+        },
 
-      # Downlod example
-        tags$hr(),
-          downloadButton(ns("dl_example_data"), "Downlaod example data"),
-          htmlOutput(ns("download_example")),
+        # Downlod example
+        if(dl_example){
+          download_tsv_dataUI(
+            id = ns("dl_example"), 
+            label = paste0("DL example of ", id), 
+            description = example_description)
+        }else{
+          tagList()
+        },
+
       ),
 
       mainPanel(
-        reactableOutput(ns("table")),
+        shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
+          reactable::reactableOutput(ns("table")),
+        )
       )
 
     )
@@ -37,7 +58,7 @@ load_dataUI <- function(id){
 }
 
 ## Server module
-load_dataServer <- function(id, example_data){
+uploaded_fileServer <- function(id, example_data = NUL){
   moduleServer(id, function(input, output, session){
 
     # # # File name to upload # # #
@@ -59,7 +80,7 @@ load_dataServer <- function(id, example_data){
         } else {
           req(input$file)
           try(
-            readr::read_csv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
+            readr::read_tsv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
           )
         }
       if(inherits(data_in, "try-error")){
@@ -78,19 +99,13 @@ load_dataServer <- function(id, example_data){
     })
 
     # # # Download example # # #
-    output$download_example <-
-      renderUI("Example data: T. MATSUMURA et. al 2014.
-        Vegetation Science, 31, 193-218.
-        doi: 10.15031/vegsci.31.193")
-
-    filename <- "example_data.csv"
-    output$dl_example_data <- downloadHandler(
-      filename = filename,
-      content  = function(file) { readr::write_csv(example_data, file) }
-    )
+    output$dl_example <- 
+      download_tsv_dataServer(id = "dl_example", 
+                              data = example_data, 
+                              filename = paste0(id, "_example"))
 
     # # # Show table # # #
-    output$table <- renderReactable({
+    output$table <- reactable::renderReactable({
       reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
     })
 

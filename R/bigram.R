@@ -22,7 +22,7 @@ bigramUI <- function(id) {
 
         selectInput(ns("font"), "Font", choices = font_choices),
 
-        download_tsv_dataUI(ns("dl_bigram_data"), "DL bigram data (tsv)"),
+        download_tsv_dataUI(ns("dl_bigram"), "DL bigram data (tsv)"),
 
       ),
 
@@ -36,7 +36,7 @@ bigramUI <- function(id) {
           plotOutput(ns("big_net"))
         ),
 
-       reactableOutput(ns("table")),
+       reactable::reactableOutput(ns("table")),
 
       ),
 
@@ -50,11 +50,12 @@ bigramServer <- function(id, data_chamame){
 
     # bigram
     big <- reactive({
+  # printx(data_chamame()) # for debig
       moranajp::bigram(data_chamame())
     })
 
     # Show table
-    output$table <- renderReactable({
+    output$table <- reactable::renderReactable({
       req(big())
       big() %>%
         dplyr::select(word_1, word_2, freq) %>% 
@@ -62,7 +63,7 @@ bigramServer <- function(id, data_chamame){
     })
 
     # Download bigram data
-    download_tsv_dataServer("dl_bigram_data", big(), "bigram")
+    download_tsv_dataServer("dl_bigram", big(), "bigram")
 
     # word frequency
     freq <- reactive({

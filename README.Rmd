@@ -46,7 +46,6 @@ https://chamame.ninjal.ac.jp/
 
 Rを利用されている方は，以下のページの内容をもとにご自身のパソコン上で分析していただけると助かります．
 
-
 ```{r, eval = FALSE}
   # Install and load packages
 if(!require("devtools"))        install.packages("devtools")
@@ -64,16 +63,15 @@ if(!require("colourpicker"))    install.packages("colourpicker")
 shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
-その他は，Webでの実行と同じです．
+Webで実行するのと同じ分析ができます．
 
 
 MeCab, Sudachi, Ginzaを利用して，ローカル環境で形態素解析を実行する場合は，moranajp::moranajp_all()を使ってください．
 
 https://github.com/matutosi/moranajp
 
-textmining2は，主要な処理でmoranajpを使っています．
-ですので，Rをそれなりに使える方は，moranajp(>= 0.9.6)をインストールすれば，同様のことをローカル環境でも実行可能です．
-
+なお，textmining2は主要な処理でmoranajpを使っています．
+Rをそれなりに使える方は，moranajp(>= 0.9.6)をインストールしてコードを改良してみてください．
 
 ## Citation, 引用
 

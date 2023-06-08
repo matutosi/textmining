@@ -5,14 +5,12 @@ chamameUI <- function(id) {
     sidebarLayout(
       sidebarPanel(
         # Downlod morphorogical analysis data
-          download_tsv_dataUI(ns("dl_analysed_data"), "DL analysed data (tsv)"),
+          download_tsv_dataUI(ns("dl_analysed"), "DL analysed data (tsv)"),
       ),
-  #         selectInput(ns("lang"), "Select colname language", choices = c("jp", "en")),
-  #         selectInput(ns("group"), "group", choices = character(0)),
 
       mainPanel(
         shinycssloaders::withSpinner(type = sample(1:8, 1), color.background = "white",
-          reactableOutput(ns("table")),
+          reactable::reactableOutput(ns("table")),
         ),
       ),
     )
@@ -22,13 +20,6 @@ chamameUI <- function(id) {
 ## Server module
 chamameServer <- function(id, data_in){
   moduleServer(id, function(input, output, session){
-
-    # Update
-  #     observeEvent(data_in, {
-  #       updateSelectInput(session, "group", choices = colnames(data_in))
-  #     })
-  #    group_col <- colnames(data_in)[2]
-
 
     # Run moranajp_all
     chamame <- reactive({
@@ -41,18 +32,16 @@ chamameServer <- function(id, data_in){
         data_in() %>%
         moranajp::moranajp_all(method = "chamame", text_col = text_col, col_lang = col_lang) %>%
           moranajp::add_sentence_no() %>%
-          dplyr::filter(stringr::str_length(.data[[col_lemma]]) > 0) %>%          # remove ""
-          dplyr::filter(!stringr::str_detect(.data[[col_lemma]], full_space)) %>% # remove full size space
-          moranajp::clean_up()
+          dplyr::filter(stringr::str_length(.data[[moranajp::unescape_utf("\\u539f\\u5f62")]]) > 0)
     })
 
     # Show table
-    output$table <- renderReactable({
+    output$table <- reactable::renderReactable({
       reactable::reactable(chamame(), resizable = TRUE, filterable = TRUE, searchable = TRUE,)
     })
 
     # Download analysed data
-    download_tsv_dataServer("dl_analysed_data", chamame(), "chamame")
+    download_tsv_dataServer("dl_analysed", chamame(), "chamame")
 
     # Return value
   # printx(chamame)
