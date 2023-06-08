@@ -63,8 +63,7 @@ if(!require("colourpicker"))    install.packages("colourpicker")
 shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
-Webで実行するのと同じ分析ができます．
-
+Webでの実行するのと同じ分析ができます．
 
 MeCab, Sudachi, Ginzaを利用して，ローカル環境で形態素解析を実行する場合は，moranajp::moranajp_all()を使ってください．
 
@@ -72,6 +71,7 @@ https://github.com/matutosi/moranajp
 
 なお，textmining2は主要な処理でmoranajpを使っています．
 Rをそれなりに使える方は，moranajp(>= 0.9.6)をインストールしてコードを改良してみてください．
+
 
 ## Citation, 引用
 
