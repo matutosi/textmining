@@ -4,6 +4,7 @@ example_text <- function(){
 }
 
 example_stop_words <- function(){
+  # http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt"
   moranajp::unescape_utf(stop_words)
 }
 

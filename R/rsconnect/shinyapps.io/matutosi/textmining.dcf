@@ -1,12 +1,12 @@
 name: textmining
 title: textmining
-username:
+username: matutosi
 account: matutosi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 6391497
+appId: 9265808
 bundleId:
 url: https://matutosi.shinyapps.io/textmining/
+version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: load_data.R

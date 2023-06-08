@@ -9,14 +9,15 @@ navbarPage("textmining",
 
   # # # Data load # # #
   tabPanel("Upload text",
-    tags$h3("Select ONE column (text)."),
+    tags$h3("Upload text."),
     upload_fileUI(id = "text",
-      instruction = c("Prepare text file", "Updoad the file"), 
-      example_description = "Data: T. MATSUMURA et. al 2014. Vegetation Science, 31, 193-218. doi: 10.15031/vegsci.31.193"),
+      instruction = c("Prepare text file", "Updoad the file", "Select ONE column (text)"), 
+      example_description = "T. MATSUMURA et. al 2014. Vegetation Science, 31, 193-218. doi: 10.15031/vegsci.31.193"),
   ),
 
   # # # chamame # # #
   tabPanel("Chamame",
+    tags$h3("Analysed with https://chamame.ninjal.ac.jp/"),
     chamameUI(id = "chamame")
   ),
 
@@ -27,6 +28,7 @@ navbarPage("textmining",
     upload_fileUI(
       id = "stop_words", 
       instruction = c("Prepare stop words file", "Updoad the file"), 
+      example_description = "http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt",
       select_column = FALSE),
   ),
 
