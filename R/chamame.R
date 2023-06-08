@@ -26,10 +26,8 @@ chamameServer <- function(id, data_in){
       text_col <- colnames(data_in())[1]
       col_lang <- "jp"
   #       col_lang <- input$lang
-      col_lemma <- moranajp::unescape_utf("\\u539f\\u5f62")
-      full_space <- unescape_utf("^\\u3000$")
   # print(data_in); print(text_col); print(col_lang)  # for debug
-        data_in() %>%
+      data_in() %>%
         moranajp::moranajp_all(method = "chamame", text_col = text_col, col_lang = col_lang) %>%
           moranajp::add_sentence_no() %>%
           dplyr::filter(stringr::str_length(.data[[moranajp::unescape_utf("\\u539f\\u5f62")]]) > 0)

@@ -8,7 +8,7 @@
   # if(!require("reactable"))       install.packages("reactable")
   # if(!require("colourpicker"))    install.packages("colourpicker")
   # if(!require("devtools"))        install.packages("devtools")
-  # devtools::install_github("matutosi/moranajp")
+devtools::install_github("matutosi/moranajp")
 library(shiny)
 library(moranajp)
 library(shinycssloaders)

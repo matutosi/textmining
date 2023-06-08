@@ -1,11 +1,11 @@
   # https://matutosi.shinyapps.io/textmining/
 navbarPage("textmining",
 
-  # # # # # # # # # # # # # # # # # # 
-  # 
-  #      ANALYZED data
-  # 
-  # # # # # # # # # # # # # # # # # # 
+  # # # # # # # # # # # # # # # # # #
+  #
+  #  Ver. 2
+  #
+  # # # # # # # # # # # # # # # # # #
 
   # # # Data load # # #
   tabPanel("Upload text",
@@ -48,8 +48,8 @@ navbarPage("textmining",
   ),
 
   # # Bigram # # #
-  tabPanel("Bigram (raw data)",
-    bigramUI("bigram_raw")
+  tabPanel("Bigram",
+    bigramUI("bigram")
   ),
 
 )

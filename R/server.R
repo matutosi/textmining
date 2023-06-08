@@ -3,9 +3,16 @@ function(input, output, session){
 
   # # # # # # # # # # # # # # # # # # # #
   #
-  #  Ver. 3
+  #  Ver. 2
   #
   # # # # # # # # # # # # # # # # # # # #
+
+  # # # # # # test # # # # # # # # # # # #
+  #   text <- 
+  #     uploaded_fileServer(id = "test", 
+  #                         example_data = example_stop_words(), 
+  #                         example_description = "this is test module")
+  # # # # # # # # # # # # # # # # # # # # #
 
   # # # Data load # # #
   text <- uploaded_fileServer(id = "text", 
