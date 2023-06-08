@@ -106,6 +106,8 @@ uploaded_fileServer <- function(id, example_data = NUL){
 
     # # # Show table # # #
     output$table <- reactable::renderReactable({
+printx(data_in())
+printx(input$select_col)
       reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
     })
 
