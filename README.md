@@ -5,7 +5,7 @@ The goal of textmining is to support textmining visualization of
 Japanese.
 
 textmining2はテキストマイニングの図化を支援するツールです．
-2023年3月時点では，バイグラムの分析・図化ができます．
+2023年6月時点では，バイグラムの分析・図化ができます．
 
 ## How to use on we, Webで実行 (shinyapps.io)
 
@@ -50,16 +50,18 @@ if(!require("colourpicker"))    install.packages("colourpicker")
 shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
-その他は，Webでの実行と同じです．
+Web版との違い \* Stop wordが設定可能 \* Synonymが設定可能
+
+## MeCab, Sudachi, Ginzaの利用
 
 MeCab, Sudachi,
 Ginzaを利用して，ローカル環境で形態素解析を実行する場合は，moranajp::moranajp_all()を使ってください．
 
 <https://github.com/matutosi/moranajp>
 
-textmining2は，主要な処理でmoranajpを使っています．
-ですので，Rをそれなりに使える方は，moranajp(\>=
-0.9.6)をインストールすれば，同様のことをローカル環境でも実行可能です．
+なお，textmining2は主要な処理でmoranajpを使っています．
+Rをそれなりに使える方は，moranajp(\>=
+0.9.6)をインストールしてコードを改良してみてください．
 
 ## Citation, 引用
 
