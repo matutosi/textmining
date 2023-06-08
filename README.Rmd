@@ -45,7 +45,10 @@ https://chamame.ninjal.ac.jp/
 ## How to use on your local PC, ローカル環境で実行
 
 Rを利用されている方は，以下のページの内容をもとにご自身のパソコン上で分析していただけると助かります．
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev2
 
 ```{r, eval = FALSE}
   # Install and load packages
@@ -64,17 +67,27 @@ if(!require("colourpicker"))    install.packages("colourpicker")
 shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
+<<<<<<< HEAD
 その他は，Webでの実行と同じです．
+=======
+Webでの実行するのと同じ分析ができます．
+>>>>>>> dev2
 
 
 MeCab, Sudachi, Ginzaを利用して，ローカル環境で形態素解析を実行する場合は，moranajp::moranajp_all()を使ってください．
 
 https://github.com/matutosi/moranajp
 
+<<<<<<< HEAD
 textmining2は，主要な処理でmoranajpを使っています．
 ですので，Rをそれなりに使える方は，moranajp(>= 0.9.6)をインストールすれば，同様のことをローカル環境でも実行可能です．
 
 
+=======
+なお，textmining2は主要な処理でmoranajpを使っています．
+Rをそれなりに使える方は，moranajp(>= 0.9.6)をインストールしてコードを改良してみてください．
+
+>>>>>>> dev2
 ## Citation, 引用
 
 Toshikazu Matsumura (2022) Textmining visualization tools with R and shiny.  https://matutosi.shinyapps.io/textmining/ .

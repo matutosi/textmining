@@ -1,8 +1,9 @@
 ## UI module
-download_tsv_dataUI <- function(id, label = "Download file") {
+download_tsv_dataUI <- function(id, label = "DL file", description = ""){
   ns <- NS(id)
   tagList(
     downloadButton(ns("data_download_tsv"), label),
+    tags$p(description),
   )
 }
 

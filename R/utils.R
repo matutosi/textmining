@@ -1,7 +1,12 @@
-## Example text
-example_text <- function(){
-  moranajp::unescape_utf(review)
-  #   moranajp::unescape_utf(review) %>% utils::head(20) # for test
+## convert strings into shiny.tag
+str2li <- function(str, ol = TRUE){
+  li <- ifelse(ol, "ol", "ul")
+  li <- paste0('tags$', li, '(')
+  for(s in str){
+    li <- paste0(li, 'tags$li("', s, '"),')
+  }
+  li <- paste0(li, ')')
+  eval(str2expression(li))
 }
 
 ## change font with os in bigram
@@ -19,3 +24,4 @@ printx <- function(x){
   print(paste0(name, ": "))
   print(x)
 }
+
