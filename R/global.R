@@ -1,6 +1,6 @@
   # https://matutosi.shinyapps.io/textmining2/
   # if(!require("devtools"))        install.packages("devtools")
-  # devtools::install_github("matutosi/moranajp")
+    # devtools::install_github("matutosi/moranajp")
   # if(!require("moranajp"))        install.packages("moranajp")
   # if(!require("shiny"))           install.packages("shiny")
   # if(!require("shinycssloaders")) install.packages("shinycssloaders")
@@ -8,13 +8,14 @@
   # if(!require("reactable"))       install.packages("reactable")
   # if(!require("colourpicker"))    install.packages("colourpicker")
   # if(!require("devtools"))        install.packages("devtools")
-devtools::install_github("matutosi/moranajp")
+  # devtools::install_github("matutosi/moranajp")
+  # library(moranajp)
+  # library(shinycssloaders)
+  # library(readr)
+  # library(reactable)
+  # library(colourpicker)
+
 library(shiny)
-library(moranajp)
-library(shinycssloaders)
-library(readr)
-library(reactable)
-library(colourpicker)
 
   # ui.R
   # server.R
