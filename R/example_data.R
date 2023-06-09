@@ -24,3 +24,8 @@ example_synonym <- function(){
   ) %>%
   moranajp::unescape_utf()
 }
+
+example_combine <- function(){
+  tibble::tibble(combi = c("\\u534a-\\u81ea\\u7136", "\\u591a\\u69d8-\\u6027")) %>%
+    moranajp::unescape_utf()
+}
