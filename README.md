@@ -21,10 +21,10 @@ textmining2はテキストマイニングの図化を支援するツールです
 
 バイグラムの図示では，以下の設定が可能です．
 
-- 詳細図の範囲
-- 表示するバイグラムの数
-- 軸の有無
-- 矢印・単語頻度の●のサイズ・色
+- 詳細図の範囲  
+- 表示するバイグラムの数  
+- 軸の有無  
+- 矢印・単語頻度の●のサイズ・色  
 - 文字サイズ
 
 さらに，バイグラムの解析結果は表として表示されるとともに，CSVファイルでのダウンロードが可能です．
@@ -38,7 +38,7 @@ Rを利用されている方は，以下のページの内容をもとにご自�
 library(shiny)
 if(!require("devtools"))         install.packages("devtools")
 if(!require("moranajp") |
-    compareVersion("9.6.0", as.character(packageVersion("moranajp"))) < 0){
+    compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
   devtools::install_github("matutosi/moranajp")
   library(moranajp)
 }
@@ -55,7 +55,11 @@ if(!require("readr"))             install.packages("readr")
 shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
-Web版との違い \* Stop wordが設定可能 \* Synonymが設定可能
+Web版との違い
+
+- Combine wordsが設定可能  
+- Stop wordが設定可能  
+- Synonymが設定可能
 
 ## MeCab, Sudachi, Ginzaの利用
 
