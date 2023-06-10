@@ -50,7 +50,7 @@ Rを利用されている方は，以下のページの内容をもとにご自�
 library(shiny)
 if(!require("devtools"))         install.packages("devtools")
 if(!require("moranajp") |
-    compareVersion("9.6.0", as.character(packageVersion("moranajp"))) < 0){
+    compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
   devtools::install_github("matutosi/moranajp")
   library(moranajp)
 }
