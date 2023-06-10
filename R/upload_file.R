@@ -74,13 +74,13 @@ uploaded_fileServer <- function(id, example_data = NUL){
         if(input$use_example){
           example_data
         } else {
-          req(input$file)
+  #           req(input$file)
           try(
             readr::read_tsv(uploaded_file()$datapath, locale = locale, show_col_types = FALSE)
           )
         }
       if(inherits(data_in, "try-error")){
-        data_in <- tibble::tibble("Select correct file encoding" = "")
+        data_in <- tibble::tibble()
       }
       data_in
     })
@@ -102,7 +102,9 @@ uploaded_fileServer <- function(id, example_data = NUL){
 
     # # # Show table # # #
     output$table <- reactable::renderReactable({
-      reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
+      if(nrow(data_in() != 0)){
+        reactable::reactable(dplyr::relocate(data_in(), any_of(input$select_col)), resizable = TRUE, filterable = TRUE, searchable = TRUE)
+      }
     })
 
     # # # Selected text # # #

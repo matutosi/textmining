@@ -3,7 +3,7 @@ navbarPage("textmining",
 
   # # # # # # # # # # # # # # # # # #
   #
-  #  Ver. 2
+  #  Ver. 3
   #
   # # # # # # # # # # # # # # # # # #
 
@@ -21,10 +21,22 @@ navbarPage("textmining",
     chamameUI(id = "chamame")
   ),
 
+  # # # combine words # # #
+  tabPanel("Combine words",
+    tags$h3("Input and/or Upload combine words"),
+    textInput("combine_words_2", label = "Input words combined with '-' and separate with ',' or '，'", 
+              value = "", placeholder = "半-自然,多様-性"),
+    upload_fileUI(
+      id = "combine_words", 
+      instruction = c("Prepare combine words file", "Updoad the file"), 
+      example_description = "",
+      select_column = FALSE),
+  ),
+
   # # # Stop words # # #
   tabPanel("Stop words",
     tags$h3("Input and/or Upload stop words"),
-    textInput("stop_words_2", label = "Input stop words separate with ',' or '，'", value = "", placeholder = "例：これ，は,例,です"),
+    textInput("stop_words_2", label = "Input stop words separate with ',' or '，'", value = "", placeholder = "これ，は,例,です"),
     upload_fileUI(
       id = "stop_words", 
       instruction = c("Prepare stop words file", "Updoad the file"), 

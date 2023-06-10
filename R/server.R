@@ -3,7 +3,7 @@ function(input, output, session){
 
   # # # # # # # # # # # # # # # # # # # #
   #
-  #  Ver. 2
+  #  Ver. 3
   #
   # # # # # # # # # # # # # # # # # # # #
 
@@ -21,6 +21,11 @@ function(input, output, session){
   # # # chamame # # #
   chamame <- chamameServer(id = "chamame", text)
 
+  # # # combine words # # #
+  combine_words_1 <- uploaded_fileServer(id = "combine_words", 
+                    example_data = example_combine())
+  combine_words_2 <- reactive({ input$combine_words_2 })
+
   # # # stop_words # # #
   stop_words_1 <- uploaded_fileServer(id = "stop_words", 
                     example_data = example_stop_words())
@@ -37,6 +42,8 @@ function(input, output, session){
   # # # cleanup # # #
   cleanup <- cleanupServer(id = "cleanup", 
                chamame = chamame, 
+               combine_words_1 = combine_words_1, 
+               combine_words_2 = combine_words_2, 
                stop_words_1 = stop_words_1, 
                stop_words_2 = stop_words_2, 
                synonym = synonym)

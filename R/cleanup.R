@@ -5,6 +5,7 @@ cleanupUI <- function(id) {
     sidebarLayout(
       sidebarPanel(
         # Cleanup analysed data
+          checkboxInput(ns("use_combine_words"), "Use combine words", value = FALSE),
           checkboxInput(ns("use_stop_words"), "Use stop words", value = TRUE),
           checkboxInput(ns("use_synonym"), "Use synonym", value = TRUE),
           download_tsv_dataUI(ns("dl_cleanuped"), "DL cleanuped data (tsv)"),
@@ -20,11 +21,18 @@ cleanupUI <- function(id) {
 }
 
 ## Server module
-cleanupServer <- function(id, chamame, stop_words_1, stop_words_2, synonym){
+cleanupServer <- function(id, chamame, combine_words_1, combine_words_2, stop_words_1, stop_words_2, synonym){
   moduleServer(id, function(input, output, session){
-
     # Run moranajp_all
     cleanup <- reactive({
+      if(input$use_combine_words){
+        combine_words <- 
+          c(unlist(combine_words_1()),
+            strsplit(combine_words_2(), split = "，|,")[[1]],
+            "")
+      }else{
+        combine_words <- ""
+      }
 
       if(input$use_stop_words){
         stop_words <- 
@@ -39,12 +47,13 @@ cleanupServer <- function(id, chamame, stop_words_1, stop_words_2, synonym){
       if(input$use_synonym){
         synonym_df <- synonym()
       }else{
-        # need " " (space) to avoid empty pattern
-        synonym_df <- tibble::tibble(from = " ", to = " ") 
+        synonym_df <- tibble::tibble()
       }
+  # printx(synonym_df) # for debug
 
+      combined <- moranajp::combine_words(chamame(), combine_words)
       moranajp::clean_up(
-        chamame(), 
+        combined,
         use_common_data = FALSE,
         add_stop_words = stop_words,
         synonym_df = synonym_df)
@@ -59,7 +68,6 @@ cleanupServer <- function(id, chamame, stop_words_1, stop_words_2, synonym){
     download_tsv_dataServer("dl_cleanuped", cleanup(), "cleanup")
 
     # Return value
-  # printx(chamame)
     cleanup
 
   })
