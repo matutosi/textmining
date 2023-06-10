@@ -31,35 +31,66 @@ textmining2はテキストマイニングの図化を支援するツールです
 
 ## How to use on your local PC, ローカル環境で実行
 
-Rを利用されている方は，以下のページの内容をもとにご自身のパソコン上で分析していただけると助かります．
+Rを利用されている方は，以下を参考に自身のパソコン上で実行してください．
+
+### ライブラリのインストール(初回のみ実行)
 
 ``` r
   # Install and load packages
-library(shiny)
+if(!require("shiny")){
+  install.packages("shiny")
+}
 if(!require("devtools"))         install.packages("devtools")
-if(!require("moranajp") |
-    compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
-  devtools::install_github("matutosi/moranajp")
-  library(moranajp)
+if(!require("moranajp")){
+  devtools::install_github("matutosi/moranajp", upgrade = "never")
+}else if(compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
+  detach("package:moranajp")
+  devtools::install_github("matutosi/moranajp", upgrade = "never")
 }
 if(!require("colourpicker"))      install.packages("colourpicker")
 if(!require("shinycssloaders"))   install.packages("shinycssloaders")
 if(!require("reactable"))         install.packages("reactable")
-if(!require("moranajp"))          install.packages("moranajp")
 if(!require("dplyr"))             install.packages("dplyr")
 if(!require("ggplot2"))           install.packages("ggplot2")
 if(!require("tibble"))            install.packages("tibble")
 if(!require("readr"))             install.packages("readr")
+```
 
+### textminingの起動
+
+``` r
   # Run app
 shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
-Web版との違い
+### Web( <https://matutosi.shinyapps.io/textmining2> )版との違い
 
 - Combine wordsが設定可能  
 - Stop wordが設定可能  
 - Synonymが設定可能
+
+### Combine words
+
+形態素解析実行後に，結合したい単語を指定可能です．
+例えば，「半自然」はWeb茶豆の形態素解析では「半」と「自然」に分割されますが，これを「半自然」としたい場合は，「半-自然」として指定します．
+3つ以上に分割されたものには，対応していません．
+多くの組み合わせのを結合したい場合は，ファイルでの入力が可能です．
+
+### Stop word
+
+バイグラム作成前に，解析から除外するStop
+wordとして，exampleでは以下を使用しています．
+
+<http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt>
+
+これ以外のStop wordを使いたい場合は，カンマ区切りで直接入力するか，Stop
+wordを1行ずつに入力したファイルを用意して，アップロード可能です．
+
+### Synonym
+
+入力した文章の表記ゆれがあるものの，実質的にはほぼ同じ意味合いの単語を置換することでまとめます．
+例えば，「出来る」と「できる」などです．
+タブ区切りのファイルで，1列目(from)には置換前の文字列，2列目(to)には置換後の文字列を入力します．
 
 ## MeCab, Sudachi, Ginzaの利用
 
