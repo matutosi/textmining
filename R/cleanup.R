@@ -26,13 +26,14 @@ cleanupServer <- function(id, chamame, combine_words_1, combine_words_2, stop_wo
     # Run moranajp_all
     cleanup <- reactive({
       if(input$use_combine_words){
-        combine_words <- 
+        combi_words <- 
           c(unlist(combine_words_1()),
             strsplit(combine_words_2(), split = "，|,")[[1]],
             "")
       }else{
-        combine_words <- ""
+        combi_words <- ""
       }
+printx(combi_words)
 
       if(input$use_stop_words){
         stop_words <- 
@@ -51,7 +52,7 @@ cleanupServer <- function(id, chamame, combine_words_1, combine_words_2, stop_wo
       }
   # printx(synonym_df) # for debug
 
-      combined <- moranajp::combine_words(chamame(), combine_words)
+      combined <- moranajp::combine_words(chamame(), combi_words)
       moranajp::clean_up(
         combined,
         use_common_data = FALSE,

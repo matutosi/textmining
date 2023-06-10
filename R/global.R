@@ -6,6 +6,7 @@ if(!require("moranajp") |
   devtools::install_github("matutosi/moranajp")
   library(moranajp)
 }
+
 if(!require("colourpicker"))      install.packages("colourpicker")
 if(!require("shinycssloaders"))   install.packages("shinycssloaders")
 if(!require("reactable"))         install.packages("reactable")
