@@ -16,6 +16,7 @@ if(!require("ggplot2"))           install.packages("ggplot2")
 if(!require("tibble"))            install.packages("tibble")
 if(!require("readr"))             install.packages("readr")
   # shiny::runGitHub("matutosi/textmining", subdir = "R")
+  # shiny::runApp("d:/matu/work/todo/textmining/R")
 
   # ui.R
   # server.R

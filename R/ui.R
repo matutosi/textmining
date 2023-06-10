@@ -24,7 +24,7 @@ navbarPage("textmining",
   # # # combine words # # #
   tabPanel("Combine words",
     tags$h3("Input and/or Upload combine words"),
-    textInput("combine_words_2", label = "Input words combined with '-' and separate with ',' or '，'", 
+    textInput("combine_words_2", label = "Input words combined with '-' and separated with ',' or '，'", 
               value = "", placeholder = "半-自然,多様-性"),
     upload_fileUI(
       id = "combine_words", 
@@ -36,7 +36,7 @@ navbarPage("textmining",
   # # # Stop words # # #
   tabPanel("Stop words",
     tags$h3("Input and/or Upload stop words"),
-    textInput("stop_words_2", label = "Input stop words separate with ',' or '，'", value = "", placeholder = "これ，は,例,です"),
+    textInput("stop_words_2", label = "Input stop words separated with ',' or '，'", value = "", placeholder = "これ，は,例,です"),
     upload_fileUI(
       id = "stop_words", 
       instruction = c("Prepare stop words file", "Updoad the file"), 
@@ -46,14 +46,15 @@ navbarPage("textmining",
 
   # # # Synonym # # #
   tabPanel("Synonym",
-    tags$h3("Upload synonym"),
+    tags$h3("Input and/or Upload synonym"),
+    textInput("synonym_2", label = "Input synonym combined with '=' and separated with ',' or '，'", value = "", placeholder = "出来る=できる,わかる=分かる"),
     upload_fileUI(
       id = "synonym", 
       instruction = c("Prepare synonym file", "Updoad the file"),
       select_column = FALSE),
   ),
 
-  # # # Synonym # # #
+  # # # Cleanup # # #
   tabPanel("Cleanup",
     tags$h3("Cleanup"),
     cleanupUI(id = "cleanup"),

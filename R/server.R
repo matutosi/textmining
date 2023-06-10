@@ -7,13 +7,6 @@ function(input, output, session){
   #
   # # # # # # # # # # # # # # # # # # # #
 
-  # # # # # # test # # # # # # # # # # # #
-  #   text <- 
-  #     uploaded_fileServer(id = "test", 
-  #                         example_data = example_stop_words(), 
-  #                         example_description = "this is test module")
-  # # # # # # # # # # # # # # # # # # # # #
-
   # # # Data load # # #
   text <- uploaded_fileServer(id = "text", 
             example_data = example_text())
@@ -36,8 +29,9 @@ function(input, output, session){
     })
 
   # # # synonym # # #
-  synonym <- uploaded_fileServer(id = "synonym", 
+  synonym_1 <- uploaded_fileServer(id = "synonym", 
                example_data = example_synonym())
+  synonym_2 <- reactive({ input$synonym_2 })
 
   # # # cleanup # # #
   cleanup <- cleanupServer(id = "cleanup", 
@@ -46,7 +40,8 @@ function(input, output, session){
                combine_words_2 = combine_words_2, 
                stop_words_1 = stop_words_1, 
                stop_words_2 = stop_words_2, 
-               synonym = synonym)
+               synonym_1 = synonym_1,
+               synonym_2 = synonym_2)
 
   # # # Bigram # # #
   #   bigramServer(id = "bigram", chamame)

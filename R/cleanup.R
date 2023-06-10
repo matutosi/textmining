@@ -21,10 +21,17 @@ cleanupUI <- function(id) {
 }
 
 ## Server module
-cleanupServer <- function(id, chamame, combine_words_1, combine_words_2, stop_words_1, stop_words_2, synonym){
+cleanupServer <- function(id, chamame, 
+                          combine_words_1, combine_words_2, 
+                          stop_words_1, stop_words_2, 
+                          synonym_1, synonym_2){
+
   moduleServer(id, function(input, output, session){
-    # Run moranajp_all
+
+  # Run moranajp_all
     cleanup <- reactive({
+
+  # combi_words
       if(input$use_combine_words){
         combi_words <- 
           c(unlist(combine_words_1()),
@@ -33,8 +40,9 @@ cleanupServer <- function(id, chamame, combine_words_1, combine_words_2, stop_wo
       }else{
         combi_words <- ""
       }
-printx(combi_words)
+  # printx(combi_words) # for debug
 
+  # stop_words
       if(input$use_stop_words){
         stop_words <- 
           c(unlist(stop_words_1()),
@@ -45,11 +53,23 @@ printx(combi_words)
       }
   # printx(stop_words) # for debug
 
+  # synonym
+  # synonym_2 <- function(){ "出来る=できる,わかる=分かる"}
       if(input$use_synonym){
-        synonym_df <- synonym()
+        synonym_df <- 
+          strsplit(synonym_2(), split = "，|,")[[1]] %>%
+            tibble::tibble(from = .) %>%
+            tidyr::separate(from, into = c("from", "to"), sep = "=") %>%
+            dplyr::bind_rows(synonym_1()) %>%
+            dplyr::distinct()
       }else{
         synonym_df <- tibble::tibble()
       }
+  #       if(input$use_synonym){
+  #         synonym_df <- synonym()
+  #       }else{
+  #         synonym_df <- tibble::tibble()
+  #       }
   # printx(synonym_df) # for debug
 
       combined <- moranajp::combine_words(chamame(), combi_words)
