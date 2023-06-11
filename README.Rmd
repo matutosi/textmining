@@ -82,6 +82,7 @@ shiny::runGitHub("matutosi/textmining", subdir = "R")
 ```
 
 * Upload textのタブからテキストのアップロード   
+
 初期設定では，「Use example data」にチェックが入っており，サンプルデータを表示している．
 「Use example data」を外すと，アップロードしたファイルの内容が表示されます(ファイルのアップロード前は何も表示されない)．
 「upload file」のところから，ファイルの1行目には列名を指定したタブ区切りのファイルをアップロードします．
@@ -94,12 +95,14 @@ Windows作成したテキストが文字化けする場合は，「Encoding: S-J
 
 
 * Chamameのタブで形態素解析の結果を確認   
+
 テキストのアップロード後にChamameのタブを開くと，処理中の画像が表示されます．
 しばらく(通常は数秒程度，テキスト量に依存)待っていると， https://chamame.ninjal.ac.jp/ (Web茶まめ，国立国語研究所)による解析結果が表示されます．
 「DL ...」で形態素解析の結果をダウンロードできます(以下同様)．   
 
 
 * Combine wordsのタブで結合文字列の指定   
+
 形態素解析実行後でバイグラム作成前に，結合したい単語を指定可能です．
 例えば，「半自然」はWeb茶まめの形態素解析では「半」と「自然」に分割されますが，これを「半自然」としたい場合は，「半-自然」として指定します．
 テキストボックスへの入力とファイルのアップロードが可能です．
@@ -110,6 +113,7 @@ Windows作成したテキストが文字化けする場合は，「Encoding: S-J
 
 
 * Stop wordのタブで除外文字列の指定   
+
 バイグラム作成前に，解析から除外するStop wordとして，exampleでは以下を使用しています．   
 
 http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt   
