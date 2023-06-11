@@ -65,11 +65,6 @@ cleanupServer <- function(id, chamame,
       }else{
         synonym_df <- tibble::tibble()
       }
-  #       if(input$use_synonym){
-  #         synonym_df <- synonym()
-  #       }else{
-  #         synonym_df <- tibble::tibble()
-  #       }
   # printx(synonym_df) # for debug
 
       combined <- moranajp::combine_words(chamame(), combi_words)
