@@ -32,12 +32,14 @@ textmining2はテキストマイニングの図化を支援するツールです
 ## How to use on your local PC, ローカル環境で実行
 
 Rを利用されている方は，以下を参考に自身のパソコン上で実行してください．
+Web( <https://matutosi.shinyapps.io/textmining2>
+)版から新規機能が追加され，仕様が若干異なります．
 
 ### Web( <https://matutosi.shinyapps.io/textmining2> )版との違い
 
-- Combine wordsが設定可能  
-- Stop wordが設定可能  
-- Synonymが設定可能
+- Combine words(結合文字列)が設定可能  
+- Stop word(除外文字列)が設定可能  
+- Synonym(置換文字列)が設定可能
 
 ### ライブラリのインストール(初回のみ実行)
 
@@ -88,7 +90,7 @@ Windows」にチェックを入れると文字化けが解消するかもしれ�
 
 - Chamameのタブで形態素解析の結果を確認
 
-テキストのアップロード後にChamameのタブを開くと，処理中の画像が表示されます．
+テキストのアップロード後にChamameのタブを開くと，解析がはじまります．
 しばらく(通常は数秒程度，テキスト量に依存)待っていると，
 <https://chamame.ninjal.ac.jp/>
 (Web茶まめ，国立国語研究所)による解析結果が表示されます． 「DL
@@ -106,8 +108,7 @@ Windows」にチェックを入れると文字化けが解消するかもしれ�
 
 - Stop wordのタブで除外文字列の指定
 
-バイグラム作成前に，解析から除外するStop
-wordとして，exampleでは以下を使用しています．
+バイグラムから除外するStop wordとして，exampleでは以下を使用しています．
 
 <http://svn.sourceforge.jp/svnroot/slothlib/CSharp/Version1/SlothLib/NLP/Filter/StopWord/word/Japanese.txt>
 
