@@ -67,7 +67,12 @@ cleanupServer <- function(id, chamame,
       }
   # printx(synonym_df) # for debug
 
-      combined <- moranajp::combine_words(chamame(), combi_words)
+      combined <- 
+        chamame() %>%
+        dplyr::mutate_if(is.logical, as.character) %>%
+        dplyr::mutate_if(is.character, function(x){ tidyr::replace_na(x, "") }) %>%
+        moranajp::combine_words(combi_words)
+
       moranajp::clean_up(
         combined,
         use_common_data = FALSE,
