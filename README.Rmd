@@ -61,10 +61,10 @@ if(!require("shiny")){
 }
 if(!require("devtools"))         install.packages("devtools")
 if(!require("moranajp")){
-  devtools::install_github("matutosi/moranajp", upgrade = "never")
+  remotes::install_github("matutosi/moranajp", upgrade = "never")
 }else if(compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
   detach("package:moranajp")
-  devtools::install_github("matutosi/moranajp", upgrade = "never")
+  remotes::install_github("matutosi/moranajp", upgrade = "never")
 }
 if(!require("colourpicker"))      install.packages("colourpicker")
 if(!require("shinycssloaders"))   install.packages("shinycssloaders")

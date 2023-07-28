@@ -1,5 +1,7 @@
 ## UI module
 bigramUI <- function(id) {
+
+  # Need ns ?????
   ns <- NS(id)
   tagList(
     sidebarLayout(
@@ -11,7 +13,7 @@ bigramUI <- function(id) {
         checkboxInput(ns("show_axis"), "Show axis", value = TRUE),
 
         numericInput(ns("rand_seed"), "Seed of random number generation", value = 12, min = 1, max = 100),
-        sliderInput(ns("threshold"), "Number of bigram for plot", value = 100, min = 50, max = 200),
+        sliderInput(ns("threshold"), "Number of bigram for plot", value = 100, min = 10, max = 200),
 
         colourpicker::colourInput(ns("arrow_col"),  "Arrow colour",  value = "darkgreen"),
         colourpicker::colourInput(ns("circle_col"), "Circle colour", value = "skyblue"),
