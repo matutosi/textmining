@@ -3,7 +3,7 @@ library(shiny)
 if(!require("remotes"))         install.packages("remotes")
 if(!require("moranajp") |
     compareVersion("0.9.5", as.character(packageVersion("moranajp"))) < 0){
-  remotes::install_github("matutosi/screenshot", ref = "develop")
+  remotes::install_github("matutosi/moranajp", ref = "develop")
   library(moranajp)
 }
 
@@ -29,7 +29,7 @@ source("bigram.R")
 source("utils.R")
 
 os <- get_os()
-font_choices <- 
+font_choices <-
   switch(os,
     "win"   = c("Meiryo UI", "Yu Gothic", "Yu Mincho"),
     "linux" = c("IPAexGothic", "Noto Sans CJK JP", "IPAexMincho", "Noto Serif CJK JP", "SetoFont"),
@@ -47,13 +47,13 @@ font_choices <-
   #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #  #
   # # 4 fonts
   # # download.file("https://raw.githubusercontent.com/ltl-manabi/shinyapps.io_japanese_font/master/use_4_font.sh", destfile = "use_4_font.sh")
-  # 
+  #
   # os <- get_os()
   # if(os == "linux"){
   #   system("bash ./use_4_font.sh")
   # }
-  # 
-  # font_choices <- 
+  #
+  # font_choices <-
   #   switch(os,
   #     "win"   = c("Meiryo UI", "Yu Gothic", "Yu Mincho"),
   #     "linux" = c("IPAexGothic", "Source Han Sans", "Noto Sans CJK JP", "SetoFont", "IPAexMincho", "Source Han Serif", "Noto Serif CJK JP"),
