@@ -1,9 +1,9 @@
   # https://matutosi.shinyapps.io/textmining2/
 library(shiny)
-if(!require("devtools"))         install.packages("devtools")
+if(!require("remotes"))         install.packages("remotes")
 if(!require("moranajp") |
-    compareVersion("9.6.0", as.character(packageVersion("moranajp"))) < 0){
-  devtools::install_github("matutosi/moranajp")
+    compareVersion("0.9.5", as.character(packageVersion("moranajp"))) < 0){
+  remotes::install_github("matutosi/screenshot", ref = "develop")
   library(moranajp)
 }
 
