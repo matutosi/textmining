@@ -24,9 +24,9 @@ source("upload_file.R")
 source("download_data.R")
 source("example_data.R")
 source("chamame.R")
-source("cleanup.R")
 source("bigram.R")
 source("utils.R")
+source("cleanup.R")
 
 os <- get_os()
 font_choices <-
