@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 tools
+.claude/settings.local.json
