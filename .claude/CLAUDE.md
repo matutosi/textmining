@@ -71,7 +71,13 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
   同一語の判定・さかのぼる範囲・代表語の選び方・入力形式・
   形態素解析のバックエンド・デッドコード検出の方針が決定．
   置き場所と2回目の単語の表示方法は保留．
-- moranajp が CRAN からアーカイブされている件を課題として登録．原因は共有待ち．
+- moranajp が CRAN からアーカイブされている件を課題として登録．
+  ユーザから CRAN のメールが共有され，原因が判明した
+  (`web_chamame()` の Examples が Web茶まめに接続できず check がエラー．
+  インターネット資源は穏当に失敗させよ，という CRAN ポリシー違反)．
+  TODO 欄に原因と修正方針を追記したうえで，
+  実際の修正作業は moranajp リポジトリ側へ引き継いだ
+  (`d:\Dropbox\todo\moranajp\.claude\HANDOFF-cran-archive.md`)．
 
 ### 直近のコミット履歴
 
@@ -88,16 +94,40 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 
 ### TODO / 今後の候補
 
+> 解決済みになった項目は，この節から [done.md](done.md) へ移す
+> (完了日と結果を添える)．このファイルには進行中のものだけを残す．
+
 - **(重要・未着手) moranajp の CRAN アーカイブへの対応**．
-  moranajp は 2025年半ば頃(2026-08-04 時点で約1年前)に CRAN からアーカイブされた．
+  moranajp は 2025年10月末にアーカイブされた．
   <https://cran.r-project.org/web/packages/moranajp/index.html>
-  - 原因はユーザから別途共有される予定．共有され次第ここに追記する．
+  - **原因(CRAN からのメールで判明)**: `web_chamame()` の Examples が
+    Web茶まめ(<https://chamame.ninjal.ac.jp/>)に接続できず，
+    `Error in open.connection(x, "rb") : cannot open the connection`
+    (`web_chamame` → `read_html.default`)で check がエラーになった．
+    - CRAN ポリシー: 「インターネット資源を使うパッケージは，資源が利用できない場合や
+      変更された場合に，**情報を伴うメッセージを出して穏当に失敗する**こと
+      (check の warning/error を出さない)」．
+      CRAN 側は「資源が復旧するかどうかに関わらず修正が必要」と明記している．
+    - 経緯: 2025-10-11 に Brian Ripley 氏(CRAN)から通知，期限は 2025-10-25，
+      2025-10-12 に失敗内容の詳細が追加で送られた．
+  - **修正の方針(再登録する場合)**:
+    - `web_chamame()` を，接続失敗時に error ではなく情報メッセージを出して
+      `NULL` 等を返す形にする(`try()` / `httr2` の `req_error()` などで包む)．
+    - Examples はネットワークに触れないようにする
+      (`\dontrun{}` または `\donttest{}` にする，あるいは保存済みの応答を使う)．
+    - テストも同様に，オフラインなら `skip()` する．
   - textmining2 は主要処理を moranajp に依存するため影響が大きい
     (現状は `remotes::install_github()` で導入しているので動作はする)．
   - 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
     同じ依存を前提にしているため，方針は両者で揃える．
-  - 対応の選択肢: CRAN への再登録(アーカイブ理由の解消) /
+    新パッケージを CRAN に出すなら，同じ穏当な失敗の作りにしておく．
+  - 対応の選択肢: CRAN への再登録(上の修正をして再投稿) /
     GitHub 配布のまま運用 / 必要な処理を新パッケージ側に取り込む．
+  - **作業は moranajp リポジトリ側に引き継ぎ済み**(2026-08-04)．
+    `d:\Dropbox\todo\moranajp\.claude\HANDOFF-cran-archive.md` に
+    原因・修正方針・作業前の注意(develop ブランチ，未コミット変更あり)をまとめた．
+    以後の修正はそちらのディレクトリを開いて進める．
+    このリポジトリ側では，結果(再登録の可否・`global.R` の導入方法の変更)だけを追う．
 - (未着手) 3単語以上の結合(「半-自然-草原」)への対応
 - (未着手) 共起ネットワーク・ワードクラウドなどバイグラム以外の図化
 - (未着手) `tools/bigram_bak.R` の整理(不要なら削除)
