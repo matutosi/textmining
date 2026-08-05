@@ -1,4 +1,4 @@
-﻿## UI module
+## UI module
 cleanupUI <- function(id) {
   ns <- NS(id)
   tagList(
