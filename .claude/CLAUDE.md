@@ -78,6 +78,11 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
   TODO 欄に原因と修正方針を追記したうえで，
   実際の修正作業は moranajp リポジトリ側へ引き継いだ
   (`d:\Dropbox\todo\moranajp\.claude\HANDOFF-cran-archive.md`)．
+- 翌 2026-08-05，moranajp 0.9.8 が **CRAN に受理され，アーカイブから復帰した**．
+  あわせて Web茶まめの 2025年の仕様変更(項目番号のずれ・`dic_version` 必須化・
+  出力列のずれ)にも追随し，茶まめ経由の解析が動く状態に戻した．
+  詳細は [done.md](done.md)．
+  この課題は解決したので，残るのは導入方法を CRAN 版に切り替えるかの判断だけ(下の TODO)．
 
 ### 直近のコミット履歴
 
@@ -97,37 +102,17 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 > 解決済みになった項目は，この節から [done.md](done.md) へ移す
 > (完了日と結果を添える)．このファイルには進行中のものだけを残す．
 
-- **(重要・未着手) moranajp の CRAN アーカイブへの対応**．
-  moranajp は 2025年10月末にアーカイブされた．
-  <https://cran.r-project.org/web/packages/moranajp/index.html>
-  - **原因(CRAN からのメールで判明)**: `web_chamame()` の Examples が
-    Web茶まめ(<https://chamame.ninjal.ac.jp/>)に接続できず，
-    `Error in open.connection(x, "rb") : cannot open the connection`
-    (`web_chamame` → `read_html.default`)で check がエラーになった．
-    - CRAN ポリシー: 「インターネット資源を使うパッケージは，資源が利用できない場合や
-      変更された場合に，**情報を伴うメッセージを出して穏当に失敗する**こと
-      (check の warning/error を出さない)」．
-      CRAN 側は「資源が復旧するかどうかに関わらず修正が必要」と明記している．
-    - 経緯: 2025-10-11 に Brian Ripley 氏(CRAN)から通知，期限は 2025-10-25，
-      2025-10-12 に失敗内容の詳細が追加で送られた．
-  - **修正の方針(再登録する場合)**:
-    - `web_chamame()` を，接続失敗時に error ではなく情報メッセージを出して
-      `NULL` 等を返す形にする(`try()` / `httr2` の `req_error()` などで包む)．
-    - Examples はネットワークに触れないようにする
-      (`\dontrun{}` または `\donttest{}` にする，あるいは保存済みの応答を使う)．
-    - テストも同様に，オフラインなら `skip()` する．
-  - textmining2 は主要処理を moranajp に依存するため影響が大きい
-    (現状は `remotes::install_github()` で導入しているので動作はする)．
-  - 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
-    同じ依存を前提にしているため，方針は両者で揃える．
-    新パッケージを CRAN に出すなら，同じ穏当な失敗の作りにしておく．
-  - 対応の選択肢: CRAN への再登録(上の修正をして再投稿) /
-    GitHub 配布のまま運用 / 必要な処理を新パッケージ側に取り込む．
-  - **作業は moranajp リポジトリ側に引き継ぎ済み**(2026-08-04)．
-    `d:\Dropbox\todo\moranajp\.claude\HANDOFF-cran-archive.md` に
-    原因・修正方針・作業前の注意(develop ブランチ，未コミット変更あり)をまとめた．
-    以後の修正はそちらのディレクトリを開いて進める．
-    このリポジトリ側では，結果(再登録の可否・`global.R` の導入方法の変更)だけを追う．
+- (未着手) moranajp の導入方法を CRAN 版に切り替えるか決める．
+  moranajp 0.9.8 が CRAN に復帰したので，`global.R` の
+  `remotes::install_github()`(develop ブランチ)を
+  `install.packages("moranajp")` に変えられる．
+  - CRAN 版のほうが利用者の環境で入れやすい一方，
+    develop の先行修正はすぐには入らない．
+  - shinyapps.io へのデプロイでも CRAN 版のほうが安定する．
+  - 切り替えるまでは develop 参照のままで動く(急ぎではない)．
+- 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
+  同じ形態素解析バックエンドを前提にしているので，方針は moranajp と揃える．
+  CRAN に出すなら最初から穏当な失敗の作りにしておく．
 - (未着手) 3単語以上の結合(「半-自然-草原」)への対応
 - (未着手) 共起ネットワーク・ワードクラウドなどバイグラム以外の図化
 - (未着手) `tools/bigram_bak.R` の整理(不要なら削除)
