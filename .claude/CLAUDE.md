@@ -102,14 +102,16 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 > 解決済みになった項目は，この節から [done.md](done.md) へ移す
 > (完了日と結果を添える)．このファイルには進行中のものだけを残す．
 
-- (未着手) moranajp の導入方法を CRAN 版に切り替えるか決める．
-  moranajp 0.9.8 が CRAN に復帰したので，`global.R` の
-  `remotes::install_github()`(develop ブランチ)を
-  `install.packages("moranajp")` に変えられる．
-  - CRAN 版のほうが利用者の環境で入れやすい一方，
-    develop の先行修正はすぐには入らない．
-  - shinyapps.io へのデプロイでも CRAN 版のほうが安定する．
-  - 切り替えるまでは develop 参照のままで動く(急ぎではない)．
+- **(未着手) moranajp を CRAN 版に切り替える**．
+  手順は [HANDOFF-moranajp-cran.md](HANDOFF-moranajp-cran.md) にまとめた．
+  - 前提(CRAN で 0.9.8 が公開されていること)は **2026-08-05 に確認済み**なので，
+    すぐ着手してよい．
+  - 対象は `R/global.R` と `README.Rmd` の2か所．
+  - **切り替えのついでに直すべきバグが `global.R` にある**
+    (バージョン比較の向きが逆で，新しい版が入っているほど
+    起動ごとに develop を取得し直す / `|` が短絡せず未インストール環境でエラー /
+    CRAN から入れる行が到達しない)．
+  - 出力仕様は 0.9.7 から変わっていないので，アプリ側のコード修正は不要．
 - 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
   同じ形態素解析バックエンドを前提にしているので，方針は moranajp と揃える．
   CRAN に出すなら最初から穏当な失敗の作りにしておく．
