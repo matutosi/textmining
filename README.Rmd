@@ -59,13 +59,7 @@ Web( https://matutosi.shinyapps.io/textmining2 )版から新規機能が追加�
 if(!require("shiny")){
   install.packages("shiny")
 }
-if(!require("devtools"))         install.packages("devtools")
-if(!require("moranajp")){
-  remotes::install_github("matutosi/moranajp", upgrade = "never")
-}else if(compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
-  detach("package:moranajp")
-  remotes::install_github("matutosi/moranajp", upgrade = "never")
-}
+if(!require("moranajp"))          install.packages("moranajp")
 if(!require("colourpicker"))      install.packages("colourpicker")
 if(!require("shinycssloaders"))   install.packages("shinycssloaders")
 if(!require("reactable"))         install.packages("reactable")
@@ -165,7 +159,7 @@ MeCab, Sudachi, Ginzaを利用して，ローカル環境で形態素解析を�
 https://github.com/matutosi/moranajp
 
 なお，textmining2は主要な処理でmoranajpを使っています．
-Rをそれなりに使える方は，moranajp(>= 0.9.6)をインストールしてコードを改良してみてください．
+Rをそれなりに使える方は，moranajp(>= 0.9.8)をインストールしてコードを改良してみてください．
 
 
 ## Citation, 引用

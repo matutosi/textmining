@@ -1,16 +1,14 @@
   # https://matutosi.shinyapps.io/textmining2/
 library(shiny)
-if(!require("remotes"))         install.packages("remotes")
-if(!require("moranajp") |
-    compareVersion("0.9.5", as.character(packageVersion("moranajp"))) < 0){
-  remotes::install_github("matutosi/moranajp", ref = "develop")
-  library(moranajp)
+if(!requireNamespace("moranajp", quietly = TRUE) ||
+   compareVersion(as.character(packageVersion("moranajp")), "0.9.8") < 0){
+  install.packages("moranajp")
 }
+library(moranajp)
 
 if(!require("colourpicker"))      install.packages("colourpicker")
 if(!require("shinycssloaders"))   install.packages("shinycssloaders")
 if(!require("reactable"))         install.packages("reactable")
-if(!require("moranajp"))          install.packages("moranajp")
 if(!require("dplyr"))             install.packages("dplyr")
 if(!require("ggplot2"))           install.packages("ggplot2")
 if(!require("tibble"))            install.packages("tibble")

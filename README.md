@@ -48,13 +48,7 @@ Web( <https://matutosi.shinyapps.io/textmining2>
 if(!require("shiny")){
   install.packages("shiny")
 }
-if(!require("devtools"))         install.packages("devtools")
-if(!require("moranajp")){
-  devtools::install_github("matutosi/moranajp", upgrade = "never")
-}else if(compareVersion("0.9.6.9100", as.character(packageVersion("moranajp"))) > 0){
-  detach("package:moranajp")
-  devtools::install_github("matutosi/moranajp", upgrade = "never")
-}
+if(!require("moranajp"))          install.packages("moranajp")
 if(!require("colourpicker"))      install.packages("colourpicker")
 if(!require("shinycssloaders"))   install.packages("shinycssloaders")
 if(!require("reactable"))         install.packages("reactable")
@@ -163,7 +157,7 @@ Ginzaを利用して，ローカル環境で形態素解析を実行する場合
 
 なお，textmining2は主要な処理でmoranajpを使っています．
 Rをそれなりに使える方は，moranajp(\>=
-0.9.6)をインストールしてコードを改良してみてください．
+0.9.8)をインストールしてコードを改良してみてください．
 
 ## Citation, 引用
 

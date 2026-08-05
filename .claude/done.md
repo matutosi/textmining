@@ -3,6 +3,37 @@
 [CLAUDE.md](CLAUDE.md) の「TODO / 今後の候補」から，解決したものをここへ移す．
 新しいものを上に足す．各項目には完了日と結果を書く．
 
+## moranajp の導入を CRAN 版に切り替え
+
+- **完了日**: 2026-08-06
+- **結果**: `remotes::install_github("matutosi/moranajp", ref = "develop")` をやめ，
+  `install.packages("moranajp")` にした．手順は
+  [HANDOFF-moranajp-cran.md](HANDOFF-moranajp-cran.md)(moranajp 側からの引き継ぎ)のとおり．
+- **`R/global.R`**: 判定を次の形にまとめ，`remotes` の導入行と
+  到達しない `if(!require("moranajp")) install.packages("moranajp")` を削除した．
+
+  ```r
+  if(!requireNamespace("moranajp", quietly = TRUE) ||
+     compareVersion(as.character(packageVersion("moranajp")), "0.9.8") < 0){
+    install.packages("moranajp")
+  }
+  library(moranajp)
+  ```
+
+  - **ついでに直したバグ3件**: バージョン比較の向きが逆(新しい版ほど
+    起動ごとに develop を取り直していた) / `|` が短絡せず未インストール環境でエラー /
+    CRAN から入れる行が到達しない．
+  - 判定を別プロセスで検証: 未インストール・0.9.5・0.9.7 は install，
+    0.9.8 と **0.9.8.9000(develop)はそのまま**．
+    develop 版を入れて試している環境を CRAN 版で上書きしない．
+- **`README.Rmd`**: 他のパッケージと同じ1行に統一し，`detach()` を廃止．
+  推奨版の記述を 0.9.6 → 0.9.8 に更新．
+  `rmarkdown::render()` で `README.md` を再生成した
+  (`README.md` 側には古い `devtools::install_github()` が残っていたので，これも解消)．
+- **CRAN 側の確認**: `available.packages()` で 0.9.8 を確認．
+- **残件**: 動作確認(`runApp` とデプロイ)と，
+  茶まめ接続不可時の `NULL` を `chamame.R` で受け止める件を TODO に残した．
+
 ## moranajp の CRAN アーカイブへの対応(CRAN 復帰まで完了)
 
 - **完了日**: 2026-08-05(修正は 2026-08-04，投稿・受理が 2026-08-05)
