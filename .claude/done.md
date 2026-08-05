@@ -3,6 +3,28 @@
 [CLAUDE.md](CLAUDE.md) の「TODO / 今後の候補」から，解決したものをここへ移す．
 新しいものを上に足す．各項目には完了日と結果を書く．
 
+## 動作確認とデプロイ(CRAN 版への切り替え後)
+
+- **完了日**: 2026-08-06
+- **ローカル起動**: `shiny::runApp("R", port = 8787)` で `Listening` まで到達し，
+  HTTP 200 を確認．7タブすべてが HTML に出ている．
+  起動時に判定が働き，CRAN から moranajp 0.9.8 が入った
+  (Windows バイナリがあるのでビルド不要)．
+- **作図の確認**: `neko_chamame` をアプリと同じ経路
+  (`add_sentence_no` → `combine_words` → `clean_up` → `bigram` →
+  `bigram_network` → `bigram_network_plot`)に通し，拡大図・全体図を PNG まで出力できた．
+  - **ggplot2 4.0.3 でも壊れていない**ことをここで確認した(3.x からの破壊的変更があるため)．
+  - 例示データは escape された状態で入っているので，
+    `unescape_utf()` を列名と中身の両方にかける必要がある．
+- **デプロイ**: `rsconnect::deployApp("R")` で成功
+  (<https://matutosi.shinyapps.io/textmining2/>，HTTP 200)．
+  bundleId は 8706928 → 12371962．
+  - **デプロイ元は R 4.5.1**．moranajp 0.9.8 が入っているライブラリがここだけのため
+    (4.4 は 0.9.7 かつ shinycssloaders 無し，4.2 は 0.9.6)．
+    rsconnect は 4.5 に入っていなかったので導入した(1.10.1)．
+  - サーバ側は 99 依存を解決し，moranajp も**ソースからビルドできている**
+    (GitHub 参照が消えたので，CRAN から解決される)．
+
 ## `cleanup.R` の BOM でアプリが起動しなかった問題
 
 - **完了日**: 2026-08-06

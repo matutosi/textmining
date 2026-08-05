@@ -89,6 +89,8 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
   - 茶まめに接続できないときの `moranajp_all()` の `NULL` を `chamame.R` で受け止める．
   - `cleanup.R` の先頭に BOM があり，`source()` が失敗していた
     (**アプリが起動しない状態だった**)．
+  そのうえで `shiny::runApp("R")` での起動と
+  **shinyapps.io へのデプロイまで完了**した(<https://matutosi.shinyapps.io/textmining2/>)．
 
 ### 直近のコミット履歴
 
@@ -108,9 +110,13 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 > 解決済みになった項目は，この節から [done.md](done.md) へ移す
 > (完了日と結果を添える)．このファイルには進行中のものだけを残す．
 
-- (未着手) 動作確認が残っている．
-  `shiny::runApp("R")` で茶まめのタブを通し，shinyapps.io へデプロイして確認する
-  (CRAN 版にしたことで，rsconnect が GitHub を参照しなくなり安定するはず)．
+- **(要判断) README の「Web版との違い」が実態と合っていない**．
+  README.Rmd 49-53行目は「Combine words / Stop word / Synonym はローカル版のみ」
+  と書いているが，2026-08-06 のデプロイで Web版も同じ 7タブになった
+  (Web版とローカル版で `R/` のソースは同じなので，元から差は無かった可能性が高い)．
+  - README からこの節を消すか，別の差分があるなら書き直す．
+- (未着手) 茶まめタブに実データを通す確認(ブラウザ操作が要る)．
+  作図までは `neko_chamame` で確認済み．
 - 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
   同じ形態素解析バックエンドを前提にしているので，方針は moranajp と揃える．
   CRAN に出すなら最初から穏当な失敗の作りにしておく．
