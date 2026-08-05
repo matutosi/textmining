@@ -28,10 +28,19 @@ chamameServer <- function(id, data_in){
       }else{
         text_col <- colnames(data_in())[1]
         col_lang <- "jp"
-        data_in() %>%
-          moranajp::moranajp_all(method = "chamame", text_col = text_col, col_lang = col_lang) %>%
+          # moranajp returns NULL when web chamame is not available
+        analysed <-
+          data_in() %>%
+          moranajp::moranajp_all(method = "chamame", text_col = text_col, col_lang = col_lang)
+        if(is.null(analysed)){
+          tibble::tibble("error" = paste("Cannot connect to web chamame",
+                                         "(https://chamame.ninjal.ac.jp/).",
+                                         "Please try again later."))
+        }else{
+          analysed %>%
             moranajp::add_sentence_no() %>%
             dplyr::filter(stringr::str_length(.data[[moranajp::unescape_utf("\\u539f\\u5f62")]]) > 0)
+        }
       }
     })
 

@@ -85,9 +85,10 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
   この課題は解決したので，残るのは導入方法を CRAN 版に切り替えるかの判断だけだった．
 - 2026-08-06，**moranajp の導入を CRAN 版に切り替えた**(`global.R` / `README.Rmd`)．
   あわせて `global.R` のバージョン判定のバグ3件も直した．詳細は [done.md](done.md)．
-  切り替えの検証中に，茶まめに接続できないとき
-  `moranajp_all()` の `NULL` が `chamame.R` でエラーになることが判明したので，
-  TODO に登録した．
+  切り替えの検証中に見つかった次の2件も直した(詳細は [done.md](done.md))．
+  - 茶まめに接続できないときの `moranajp_all()` の `NULL` を `chamame.R` で受け止める．
+  - `cleanup.R` の先頭に BOM があり，`source()` が失敗していた
+    (**アプリが起動しない状態だった**)．
 
 ### 直近のコミット履歴
 
@@ -107,14 +108,6 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 > 解決済みになった項目は，この節から [done.md](done.md) へ移す
 > (完了日と結果を添える)．このファイルには進行中のものだけを残す．
 
-- **(未着手) 茶まめに接続できないときの `NULL` をアプリ側で受け止める**．
-  moranajp 0.9.8 は Web茶まめに接続できないとき，`message()` を出して `NULL` を返す
-  (CRAN ポリシーに沿った穏当な失敗)．
-  ところが [R/chamame.R](../R/chamame.R) は結果をそのままパイプに流しているため，
-  `NULL` が `add_sentence_no()` に渡ってエラーになる．
-  - パッケージ側が穏当に失敗しても，アプリはエラー画面になる．
-  - `NULL` のときは「Web茶まめに接続できません」の1行を表として返す分岐を入れる
-    (`nrow(data_in()) == 0` のときに空の tibble を返しているのと同じ形にできる)．
 - (未着手) 動作確認が残っている．
   `shiny::runApp("R")` で茶まめのタブを通し，shinyapps.io へデプロイして確認する
   (CRAN 版にしたことで，rsconnect が GitHub を参照しなくなり安定するはず)．

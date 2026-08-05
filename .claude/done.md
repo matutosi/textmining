@@ -3,6 +3,33 @@
 [CLAUDE.md](CLAUDE.md) の「TODO / 今後の候補」から，解決したものをここへ移す．
 新しいものを上に足す．各項目には完了日と結果を書く．
 
+## `cleanup.R` の BOM でアプリが起動しなかった問題
+
+- **完了日**: 2026-08-06
+- **結果**: `R/cleanup.R` の先頭 3バイトの BOM(`ef bb bf`)を削除した．
+- **症状**: `global.R` の `source("cleanup.R")` が
+  `unexpected input` で失敗し，アプリが起動しない．
+  BOM が最初の文字として読まれるため，構文エラーになる．
+- **見つかった経緯**: CRAN 版への切り替えのあと，
+  `R/` の全ファイルを `parse()` にかけて確認していて判明した．
+- **注意**: RStudio から開くと encoding を補ってくれるので気づきにくい．
+  素の R セッション(`Rscript` / `shiny::runApp()`)では失敗する．
+  日本語を含む R ファイルは **BOM なしの UTF-8** で保存すること．
+  現在 `R/*.R` に BOM のあるファイルは無い．
+
+## 茶まめに接続できないときの `NULL` をアプリ側で受け止める
+
+- **完了日**: 2026-08-06
+- **結果**: [R/chamame.R](../R/chamame.R) の `chamameServer()` に `NULL` の分岐を入れた．
+  接続できないときは，エラー画面ではなく
+  「Cannot connect to web chamame ... Please try again later.」の1行を表として返す．
+- **背景**: moranajp 0.9.8 は Web茶まめに接続できないとき，
+  CRAN ポリシーに沿って `message()` を出して `NULL` を返す．
+  ところがアプリは結果をそのままパイプに流していたので，
+  `NULL` が `add_sentence_no()` に渡ってエラーになっていた
+  (パッケージが穏当に失敗しても，アプリはエラー画面になる)．
+- `nrow(data_in()) == 0` のときに空の tibble を返している既存の形に揃えた．
+
 ## moranajp の導入を CRAN 版に切り替え
 
 - **完了日**: 2026-08-06
