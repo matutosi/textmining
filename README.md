@@ -33,13 +33,7 @@ textmining2はテキストマイニングの図化を支援するツールです
 
 Rを利用されている方は，以下を参考に自身のパソコン上で実行してください．
 Web( <https://matutosi.shinyapps.io/textmining2>
-)版から新規機能が追加され，仕様が若干異なります．
-
-### Web( <https://matutosi.shinyapps.io/textmining2> )版との違い
-
-- Combine words(結合文字列)が設定可能  
-- Stop word(除外文字列)が設定可能  
-- Synonym(置換文字列)が設定可能
+)版と同じ機能を使えます．
 
 ### ライブラリのインストール(初回のみ実行)
 

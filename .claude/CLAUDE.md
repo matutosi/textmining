@@ -110,11 +110,6 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 > 解決済みになった項目は，この節から [done.md](done.md) へ移す
 > (完了日と結果を添える)．このファイルには進行中のものだけを残す．
 
-- **(要判断) README の「Web版との違い」が実態と合っていない**．
-  README.Rmd 49-53行目は「Combine words / Stop word / Synonym はローカル版のみ」
-  と書いているが，2026-08-06 のデプロイで Web版も同じ 7タブになった
-  (Web版とローカル版で `R/` のソースは同じなので，元から差は無かった可能性が高い)．
-  - README からこの節を消すか，別の差分があるなら書き直す．
 - (未着手) 茶まめタブに実データを通す確認(ブラウザ操作が要る)．
   作図までは `neko_chamame` で確認済み．
 - 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
