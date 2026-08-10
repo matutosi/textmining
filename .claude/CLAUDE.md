@@ -61,8 +61,16 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 
 ### 現在の状態
 
-(2026-08-04 更新)
+(2026-08-10 更新)
 
+- 2026-08-10，新パッケージの**名前を `sujimichi`(筋道)に決定**し，
+  **新規リポジトリ `matutosi/sujimichi`** として作ることにした．
+  CRAN・PyPI とも名前の空きを確認済み．
+  2回目の単語の表示方法と段階3のラベル付けの手段は，
+  [design-sentence-connection.md](design-sentence-connection.md) に提案を書いて未決のまま．
+- 役目を終えた `HANDOFF-moranajp-cran.md` を [done.md](done.md) に統合して削除した．
+- git を整理した．remote は `origin` のみ(同じ URL を指す `develop` を削除)，
+  ローカルブランチは `main` のみ(2023年で止まっていた `develop` を削除)．
 - Claude Code 用のプロジェクト管理ファイル(本ファイル)を新規作成．
   プロジェクト概要・構成・作業上の注意・進捗欄を整備した．
 - アプリ本体は 7タブ構成で一通り動作する状態．コードの変更はしていない．
@@ -102,8 +110,8 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 ### 関連する構想
 
 - [design-sentence-connection.md](design-sentence-connection.md):
-  単語のつながりで文章の論理構造を可視化する別パッケージの構想．
-  置き場所(このリポジトリ内かどうか)は未定．
+  単語のつながりで文章の論理構造を可視化するパッケージ **`sujimichi`** の構想．
+  新規リポジトリ `matutosi/sujimichi` として作る(このリポジトリでは開発しない)．
 
 ### TODO / 今後の候補
 
