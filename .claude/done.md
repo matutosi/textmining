@@ -71,8 +71,9 @@
 
 - **完了日**: 2026-08-06
 - **結果**: `remotes::install_github("matutosi/moranajp", ref = "develop")` をやめ，
-  `install.packages("moranajp")` にした．手順は
-  [HANDOFF-moranajp-cran.md](HANDOFF-moranajp-cran.md)(moranajp 側からの引き継ぎ)のとおり．
+  `install.packages("moranajp")` にした．
+  手順は moranajp 側のセッションからの引き継ぎ(2026-08-05 作成)にしたがった．
+  引き継ぎファイルは役目を終えたので，必要な内容をこの項目に統合して削除した．
 - **`R/global.R`**: 判定を次の形にまとめ，`remotes` の導入行と
   到達しない `if(!require("moranajp")) install.packages("moranajp")` を削除した．
 
@@ -97,6 +98,21 @@
 - **CRAN 側の確認**: `available.packages()` で 0.9.8 を確認．
 - **残件**: 動作確認(`runApp` とデプロイ)と，
   茶まめ接続不可時の `NULL` を `chamame.R` で受け止める件を TODO に残した．
+- **覚えておくこと**(引き継ぎファイルから統合)
+  - moranajp は**純粋な R パッケージ**(`src/` が無い)なので，
+    Windows/macOS のバイナリ配布を待つ必要はない．ソースからでもコンパイラなしで入る．
+  - **CRAN 版は 0.9.8 で固定される**．moranajp 側で急ぎの修正をして
+    textmining2 で先に使いたいときは，一時的に
+    `remotes::install_github("matutosi/moranajp", ref = "develop")` に戻す
+    (develop は `0.9.8.9000`)．判定は develop 版を CRAN 版で上書きしない作りにしてある．
+  - CRAN 版にした利点はデプロイに出る．GitHub 由来のパッケージは
+    rsconnect が SCM の参照を記録してデプロイ先で再取得するため失敗しやすいが，
+    CRAN 版なら Posit のパッケージマネージャから解決されて安定する．
+  - CRAN 上の版の確認は `available.packages()["moranajp", "Version"]` で足りる．
+  - 関連する記録(このリポジトリの外)
+    - moranajp 側の対応の記録: `d:\Dropbox\todo\moranajp\.claude\CLAUDE.md`
+    - 逆方向の引き継ぎ(textmining → moranajp):
+      `d:\Dropbox\todo\moranajp\.claude\HANDOFF-cran-archive.md`
 
 ## moranajp の CRAN アーカイブへの対応(CRAN 復帰まで完了)
 
