@@ -64,10 +64,10 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 (2026-08-10 更新)
 
 - 2026-08-10，新パッケージの**名前を `sujimichi`(筋道)に決定**し，
-  **新規リポジトリ `matutosi/sujimichi`** として作ることにした．
-  CRAN・PyPI とも名前の空きを確認済み．
-  2回目の単語の表示方法と段階3のラベル付けの手段は，
-  [design-sentence-connection.md](design-sentence-connection.md) に提案を書いて未決のまま．
+  CRAN・PyPI とも名前の空きを確認したうえで，
+  **`d:\Dropbox\todo\sujimichi` に独立したプロジェクトとして作成**した
+  (`usethis::create_package()` の骨組みまで．コードはまだ無い)．
+  構想のメモもそちらへ移したので，このリポジトリからは離れた．
 - 役目を終えた `HANDOFF-moranajp-cran.md` を [done.md](done.md) に統合して削除した．
 - git を整理した．remote は `origin` のみ(同じ URL を指す `develop` を削除)，
   ローカルブランチは `main` のみ(2023年で止まっていた `develop` を削除)．
@@ -75,7 +75,7 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
   プロジェクト概要・構成・作業上の注意・進捗欄を整備した．
 - アプリ本体は 7タブ構成で一通り動作する状態．コードの変更はしていない．
 - 新パッケージ「単語のつながりで文章の論理構造を可視化する」の構想を
-  ユーザから聞き取り，[design-sentence-connection.md](design-sentence-connection.md) に整理した．
+  ユーザから聞き取り，設計メモに整理した(後の `sujimichi`)．
   同一語の判定・さかのぼる範囲・代表語の選び方・入力形式・
   形態素解析のバックエンド・デッドコード検出の方針が決定．
   置き場所と2回目の単語の表示方法は保留．
@@ -109,9 +109,10 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 
 ### 関連する構想
 
-- [design-sentence-connection.md](design-sentence-connection.md):
-  単語のつながりで文章の論理構造を可視化するパッケージ **`sujimichi`** の構想．
-  新規リポジトリ `matutosi/sujimichi` として作る(このリポジトリでは開発しない)．
+- **`sujimichi`**(筋道): 単語のつながりで文章の論理構造を可視化するパッケージ．
+  2026-08-10 に `d:\Dropbox\todo\sujimichi` として独立させた．
+  構想をまとめた `design-sentence-connection.md` も
+  そちらの `.claude/design.md` へ移した(このリポジトリでは開発しない)．
 
 ### TODO / 今後の候補
 
@@ -120,9 +121,8 @@ README.Rmd    README の生成元．README.md は Rmd から生成する
 
 - (未着手) 茶まめタブに実データを通す確認(ブラウザ操作が要る)．
   作図までは `neko_chamame` で確認済み．
-- 新パッケージの構想([design-sentence-connection.md](design-sentence-connection.md))も
-  同じ形態素解析バックエンドを前提にしているので，方針は moranajp と揃える．
-  CRAN に出すなら最初から穏当な失敗の作りにしておく．
+- `sujimichi` も同じ形態素解析バックエンドを前提にしているので，
+  方針は moranajp と揃える(このリポジトリの作業ではない)．
 - (未着手) 3単語以上の結合(「半-自然-草原」)への対応
 - (未着手) 共起ネットワーク・ワードクラウドなどバイグラム以外の図化
 - (未着手) `tools/bigram_bak.R` の整理(不要なら削除)
